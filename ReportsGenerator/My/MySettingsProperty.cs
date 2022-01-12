@@ -4,15 +4,13 @@ using System.Runtime.CompilerServices;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 
-namespace ReportsGenerator.My
+namespace ReportsGenerator.My;
+
+[DebuggerNonUserCode]
+[HideModuleName]
+[StandardModule]
+[CompilerGenerated]
+internal sealed class MySettingsProperty
 {
-	[DebuggerNonUserCode]
-	[HideModuleName]
-	[StandardModule]
-	[CompilerGenerated]
-	internal sealed class MySettingsProperty
-	{
-		[HelpKeyword("My.Settings")]
-		internal static MySettings Settings => MySettings.Default;
-	}
+    [HelpKeyword("My.Settings")] internal static MySettings Settings => MySettings.Default;
 }
