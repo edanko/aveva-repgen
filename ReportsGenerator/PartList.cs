@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -323,12 +324,12 @@ internal sealed class PartList
             }
 
             num = n + 1;
-            var docx = File.Exists(docFile) ? Doc.Read(bw, docFile) : null;
+            var docx = File.Exists(docFile) ? Docx.Read(bw, docFile) : null;
 
             var num28 = num - 1;
             for (l = 2; l <= num28; l++)
             {
-                var flag5 = false;
+                var found = false;
                 obj = (object[,]) Utils.CopyArray((Array) obj, new object[12, l - 2 + 1]);
                 NewLateBinding.LateIndexSet(obj, new object[]
                 {
@@ -426,186 +427,60 @@ internal sealed class PartList
                         1
                     }, null)
                 }, null);
-                if (!Information.IsNothing(docx))
+
+                if (docx != null)
                 {
-                    var num29 = 0;
-                    var num30 = Information.UBound((Array) docx, 2);
-                    for (j = num29; j <= num30; j++)
-                        if (Math.Abs(Conversion.Val(NewLateBinding.LateIndexGet(docx, new object[]
-                            {
-                                0,
-                                j
-                            }, null)) - Conversion.Val(NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                            {
-                                0
-                            }, null))) < 0.0001)
+                    // TODO: when wcog will be changed to dictionary, change this to intersect 
+                    foreach (Array arr in arrayList4)
+                    {
+                        var currPos = arr.GetValue(0).ToString();
+                        if (docx.ContainsKey(currPos))
                         {
-                            NewLateBinding.LateIndexSet(obj, new[]
+                            if (arr.GetValue(11).ToString() != docx[currPos].Quality)
                             {
-                                11,
-                                l - 2,
-                                NewLateBinding.LateIndexGet(docx, new object[]
-                                {
-                                    2,
-                                    j
-                                }, null)
-                            }, null);
-                            if (Operators.ConditionalCompareObjectNotEqual(NewLateBinding.LateIndexGet(arrayList4[l],
-                                    new object[]
-                                    {
-                                        11
-                                    }, null), NewLateBinding.LateIndexGet(docx, new object[]
-                                {
-                                    4,
-                                    j
-                                }, null), false))
-                                bw.ReportProgress(0, Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                    Operators.ConcatenateObject(Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                        Operators.ConcatenateObject(NewLateBinding.LateIndexGet(arrayList4[l],
-                                            new object[]
-                                            {
-                                                0
-                                            }, null), " конфликт материалов (WCOG - Спец.): "),
-                                        NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                                        {
-                                            11
-                                        }, null)), " "), NewLateBinding.LateIndexGet(docx, new object[]
-                                    {
-                                        4,
-                                        j
-                                    }, null)), " !"), "\r\n"));
-                            if (Operators.ConditionalCompareObjectNotEqual(NewLateBinding.LateIndexGet(arrayList4[l],
-                                    new object[]
-                                    {
-                                        24
-                                    }, null), "", false))
+                                bw.ReportProgress(0, $"{currPos} конфликт материалов (WCOG - Спец.): {arr.GetValue(11)} {docx[currPos].Quality}\r\n");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(arr.GetValue(24).ToString()))
                             {
-                                if (Operators.ConditionalCompareObjectNotEqual(NewLateBinding.LateIndexGet(
-                                        arrayList4[l], new object[]
-                                        {
-                                            24
-                                        }, null), NewLateBinding.LateIndexGet(docx, new object[]
-                                    {
-                                        3,
-                                        j
-                                    }, null), false))
-                                    bw.ReportProgress(0, Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                        Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                            Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                                    NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                                                    {
-                                                        0
-                                                    }, null), " конфликт типоразмеров (WCOG - Спец.): "),
-                                                NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                                                {
-                                                    24
-                                                }, null)), " "), NewLateBinding.LateIndexGet(docx, new object[]
-                                        {
-                                            3,
-                                            j
-                                        }, null)), " !"), "\r\n"));
+                                if (arr.GetValue(24).ToString() != docx[currPos].Dimension)
+                                {
+                                    bw.ReportProgress(0, $"{currPos} конфликт типоразмеров (WCOG - Спец.): {arr.GetValue(24)} {docx[currPos].Dimension}\r\n");
+                                }
                             }
                             else
                             {
                                 try
                                 {
-                                    if (decimal.Compare(Convert.ToDecimal(NewLateBinding.LateIndexGet(arrayList4[l],
-                                            new object[]
-                                            {
-                                                22
-                                            }, null)), Convert.ToDecimal(NewLateBinding.LateIndexGet(docx, new object[]
-                                        {
-                                            3,
-                                            j
-                                        }, null))) != 0)
-                                        bw.ReportProgress(0, Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                            Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                                Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                                        NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                                                        {
-                                                            0
-                                                        }, null), " конфликт типоразмеров (WCOG - Спец.): "),
-                                                    NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                                                    {
-                                                        22
-                                                    }, null)), " "), NewLateBinding.LateIndexGet(docx, new object[]
-                                            {
-                                                3,
-                                                j
-                                            }, null)), " !"), "\r\n"));
+                                    if (arr.GetValue(22).ToString() != docx[currPos].Dimension)
+                                    { 
+                                        bw.ReportProgress(0,$"{currPos} конфликт типоразмеров (WCOG - Спец.): {arr.GetValue(22)} {docx[currPos].Dimension}\r\n");
+                                    }
+                                       
                                 }
                                 catch (Exception)
                                 {
-                                    bw.ReportProgress(0, Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                        Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                            Operators.ConcatenateObject(Operators.ConcatenateObject(
-                                                    NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                                                    {
-                                                        0
-                                                    }, null), " конфликт типоразмеров (WCOG - Спец.): "),
-                                                NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                                                {
-                                                    22
-                                                }, null)), " "), NewLateBinding.LateIndexGet(docx, new object[]
-                                        {
-                                            3,
-                                            j
-                                        }, null)), " !"), "\r\n"));
+                                    bw.ReportProgress(0, $"{currPos} конфликт типоразмеров (WCOG - Спец.): {arr.GetValue(22)} {docx[currPos].Dimension}\r\n");
                                 }
                             }
-
-                            flag5 = true;
-                            break;
                         }
-
-                    if (!flag5)
-                        bw.ReportProgress(0, Operators.ConcatenateObject(Operators.ConcatenateObject(
-                            NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                            {
-                                0
-                            }, null), " отсутствует в .doc!"), "\r\n"));
-                }
-                else
-                {
-                    NewLateBinding.LateIndexSet(obj, new object[]
-                    {
-                        11,
-                        l - 2,
-                        ""
-                    }, null);
+                        else
+                        {
+                            bw.ReportProgress(0, $"{currPos} отсутствует в .docx!\r\n");
+                        }
+                    }
                 }
             }
 
-            if (!Information.IsNothing(docx))
+            if (docx != null)
             {
-                var num31 = 0;
-                var num32 = Information.UBound((Array) docx, 2);
-                for (j = num31; j <= num32; j++)
+                foreach (Array arr in arrayList4)
                 {
-                    var flag5 = false;
-                    var num33 = 2;
-                    var num34 = num - 1;
-                    for (l = num33; l <= num34; l++)
-                        if (Math.Abs(Conversion.Val(NewLateBinding.LateIndexGet(docx, new object[]
-                            {
-                                0,
-                                j
-                            }, null)) - Conversion.Val(NewLateBinding.LateIndexGet(arrayList4[l], new object[]
-                            {
-                                0
-                            }, null))) < 0.0001)
-                        {
-                            flag5 = true;
-                            break;
-                        }
+                    if (!docx.ContainsKey(arr.GetValue(0).ToString()))
+                    {
+                        bw.ReportProgress(0, $"{arr.GetValue(0)} отсутствует в WCOG!\r\n");
+                    }
 
-                    if (!flag5)
-                        bw.ReportProgress(0, Operators.ConcatenateObject(Operators.ConcatenateObject(
-                            NewLateBinding.LateIndexGet(docx, new object[]
-                            {
-                                0,
-                                j
-                            }, null), " отсутствует в WCOG!"), "\r\n"));
                 }
             }
 
