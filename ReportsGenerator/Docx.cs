@@ -59,7 +59,7 @@ public class Docx
         {
             var columnsCount = table.Elements<TableGrid>().First().ChildElements.Count;
 
-            if (columnsCount != 23)
+            if (columnsCount != 29)
             {
                 continue;
             }
@@ -83,49 +83,50 @@ public class Docx
                 current.PosNo = columns[1].InnerText;
                 current.Quantity = int.Parse(columns[7].InnerText, CultureInfo.InvariantCulture);
                 
-                var thickness = DataProcessor.Regexp(" " + columns[3].InnerText + " ",
+                var dimension = DataProcessor.Regexp(" " + columns[3].InnerText + " ",
                         "(?<!,)(?<=[S,s])[0-9]{1,}[\\.|,]{0,1}[0-9]{0,}(?=\\s{1,})|[0-9]{1,}[\\.|,]{0,1}[0-9]{0,}[x|х][0-9]{1,}[\\.|,]{0,1}[0-9]{0,}(?=\\s{1,})|(?<=\\s{1})[R,r](?<!,)[0-9]{1,}[\\.|,]{0,1}[0-9]{0,}[a,b,а,б]{0,1}(?=\\s{1,})|(?<=[П][р][у][т][о][к][ ])[0-9]{1,}(?=\\s{1,})|[0-9]{1,}[\\*][0-9]{1,3}[\\.|,]{0,1}[0-9]{0,}")
                     .ToLower().Replace(",", ".");
 
-                if (thickness.Contains("полособульб"))
+                if (dimension.Contains("полособульб"))
                 {
-                    thickness = thickness.Trim().Replace("полособульб ", "r");
+                    dimension = dimension.Trim().Replace("полособульб ", "r");
                 }
 
-                if (!string.IsNullOrWhiteSpace(thickness))
+                /*if (!string.IsNullOrWhiteSpace(dimension))
                 {
-                    if (thickness.IndexOf("x") < 0)
+                    if (dimension.IndexOf("x") < 0)
                     {
-                        var array6 = thickness.Split('x');
+                        var array6 = dimension.Split('x');
                         if (array6[0].Contains("."))
                         {
                             array6[0] = $"{array6[0]}.0";
                         }
 
-                        thickness = $"{array6[1]}*{array6[0]}";
+                        dimension = $"{array6[1]}*{array6[0]}";
                     }
-                    else if (thickness.IndexOf("х") > 0)
+                    else if (dimension.IndexOf("х") > 0)
                     {
-                        var array6 = thickness.Split('x');
+                        var array6 = dimension.Split('x');
                         if (array6[0].IndexOf(".") < 1)
                         {
                             array6[0] = $"{array6[0]}.0";
                         }
 
-                        thickness = $"{array6[1]}*{array6[0]}";
+                        dimension = $"{array6[1]}*{array6[0]}";
                     }
-                    else if (thickness.Contains("r") || thickness.Contains("p"))
+                    else if (dimension.Contains("r") || dimension.Contains("p"))
                     {
                         var value =
-                            dataTable.Rows.Find(thickness.Replace("r", "").Replace("р", "").Replace("a", "а"));
+                            dataTable.Rows.Find(dimension.Replace("r", "").Replace("р", "").Replace("a", "а"));
                         if (value != null)
                         {
-                            thickness = value[1].ToString();
+                            dimension = value[1].ToString();
                         }
                     }
-                }
+                }*/
 
-                current.Dimension = thickness;
+                current.Dimension = dimension;
+
                 current.Quality = RenameMaterial(columns[14].InnerText);
 
                 if (current.Quantity > 1)
