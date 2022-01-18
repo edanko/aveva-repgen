@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DocumentFormat.OpenXml.Packaging;
@@ -87,12 +88,12 @@ public static class MaterialList
 
             ExcelHelper.UpdateCell(worksheet, (i + 1).ToString(), row, "A");
             ExcelHelper.UpdateCell(worksheet, elem.Quality, row, "B");
-            ExcelHelper.UpdateCell(worksheet, elem.RawThickness.ToString(), row, "C");
-            ExcelHelper.UpdateCell(worksheet, elem.RawLength.ToString(), row, "D");
-            ExcelHelper.UpdateCell(worksheet, elem.RawWidth.ToString(), row, "E");
+            ExcelHelper.UpdateCell(worksheet, elem.RawThickness.ToString(CultureInfo.InvariantCulture), row, "C");
+            ExcelHelper.UpdateCell(worksheet, elem.RawLength.ToString(CultureInfo.InvariantCulture), row, "D");
+            ExcelHelper.UpdateCell(worksheet, elem.RawWidth.ToString(CultureInfo.InvariantCulture), row, "E");
             ExcelHelper.UpdateCell(worksheet, elem.Quantity.ToString(), row, "F");
-            ExcelHelper.UpdateCell(worksheet, elem.TotalBurning.ToString(), row, "G");
-            ExcelHelper.UpdateCell(worksheet, elem.TotalIdle.ToString(), row, "H");
+            ExcelHelper.UpdateCell(worksheet, elem.TotalBurning.ToString(CultureInfo.InvariantCulture), row, "G");
+            ExcelHelper.UpdateCell(worksheet, elem.TotalIdle.ToString(CultureInfo.InvariantCulture), row, "H");
         }
         
         var profiles = wcog.Where(x => x.Value.IsProfile).ToDictionary(x => x.Key, x => x.Value);
@@ -131,7 +132,7 @@ public static class MaterialList
             ExcelHelper.UpdateCell(worksheet, (i + 1).ToString(), row, "A");
             ExcelHelper.UpdateCell(worksheet, elem.Type, row, "B");
             ExcelHelper.UpdateCell(worksheet, elem.Quality, row, "C");
-            ExcelHelper.UpdateCell(worksheet, elem.Length.ToString(), row, "D");
+            ExcelHelper.UpdateCell(worksheet, elem.Length.ToString(CultureInfo.InvariantCulture), row, "D");
 
         }
 

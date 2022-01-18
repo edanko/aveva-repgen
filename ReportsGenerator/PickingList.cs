@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using DocumentFormat.OpenXml.Packaging;
 using ReportsGenerator.My;
@@ -57,14 +58,14 @@ public static class PickingList
             ExcelHelper.UpdateCell(worksheet, elem.Block, row, "B");
             ExcelHelper.UpdateCell(worksheet, elem.PosNo, row, "C");
             ExcelHelper.UpdateCell(worksheet, elem.Quantity.ToString(), row, "D");
-            ExcelHelper.UpdateCell(worksheet, elem.GetThickness().ToString(), row, "E");
+            ExcelHelper.UpdateCell(worksheet, elem.GetThickness().ToString(CultureInfo.InvariantCulture), row, "E");
             ExcelHelper.UpdateCell(worksheet, elem.Quality, row, "F");
             ExcelHelper.UpdateCell(worksheet, elem.NestedOn, row, "G");
             ExcelHelper.UpdateCell(worksheet, elem.Shape, row, "H");
             ExcelHelper.UpdateCell(worksheet, elem.Dimension, row, "I");
-            ExcelHelper.UpdateCell(worksheet, elem.TotalLength.ToString(), row, "J");
-            ExcelHelper.UpdateCell(worksheet, elem.MouldedLength.ToString(), row, "K");
-            ExcelHelper.UpdateCell(worksheet, elem.Weight.ToString(), row, "L");
+            ExcelHelper.UpdateCell(worksheet, elem.TotalLength.ToString(CultureInfo.InvariantCulture), row, "J");
+            ExcelHelper.UpdateCell(worksheet, elem.MouldedLength.ToString(CultureInfo.InvariantCulture), row, "K");
+            ExcelHelper.UpdateCell(worksheet, elem.Weight.ToString(CultureInfo.InvariantCulture), row, "L");
         }
         
         try

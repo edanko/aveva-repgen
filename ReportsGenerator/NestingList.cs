@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using DocumentFormat.OpenXml.Packaging;
 using ReportsGenerator.My;
 
@@ -24,12 +25,12 @@ public static class NestingList
             ExcelHelper.UpdateCell(worksheet, elem.Quality, row, "D");
             ExcelHelper.UpdateCell(worksheet, $"{elem.RawLength:G}x{elem.RawWidth:G}", row, "E");
             ExcelHelper.UpdateCell(worksheet, elem.NoOfParts.ToString(), row, "F");
-            ExcelHelper.UpdateCell(worksheet, elem.NestingPercent.ToString(), row, "G");
-            ExcelHelper.UpdateCell(worksheet, elem.TotalBurning.ToString(), row, "H");
-            ExcelHelper.UpdateCell(worksheet, elem.TotalIdle.ToString(), row, "I");
+            ExcelHelper.UpdateCell(worksheet, elem.NestingPercent.ToString(CultureInfo.InvariantCulture), row, "G");
+            ExcelHelper.UpdateCell(worksheet, elem.TotalBurning.ToString(CultureInfo.InvariantCulture), row, "H");
+            ExcelHelper.UpdateCell(worksheet, elem.TotalIdle.ToString(CultureInfo.InvariantCulture), row, "I");
             ExcelHelper.UpdateCell(worksheet, elem.NoOfBurningStarts.ToString(), row, "J");
-            ExcelHelper.UpdateCell(worksheet, elem.PartsWeight.ToString(), row, "K");
-            ExcelHelper.UpdateCell(worksheet, elem.RemnantWeight.ToString(), row, "L");
+            ExcelHelper.UpdateCell(worksheet, elem.PartsWeight.ToString(CultureInfo.InvariantCulture), row, "K");
+            ExcelHelper.UpdateCell(worksheet, elem.RemnantWeight.ToString(CultureInfo.InvariantCulture), row, "L");
         }
 
         try
