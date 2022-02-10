@@ -84,7 +84,7 @@ internal static class DataProcessor
         else
         { 
             bw.ReportProgress(0, $"Гнутых деталей найдено: {bentParts.Count}\r\n");
-            BendingList.Gen(bw, bentParts);
+            BendingList.Gen(bentParts);
         }
 
         if (genFiles.Count == 0)

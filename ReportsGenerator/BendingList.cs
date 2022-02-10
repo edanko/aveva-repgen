@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using DocumentFormat.OpenXml.Packaging;
+﻿using DocumentFormat.OpenXml.Packaging;
 using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
 public static class BendingList
 {
-    public static string GetNameAndDimentionString(Wcog elem)
+    private static string GetNameAndDimentionString(Wcog elem)
     {
         var t = elem.GetThickness().ToString("F1");
         var dim = elem.Dimension.Split("*");
@@ -21,11 +20,23 @@ public static class BendingList
         };
     }
 
-    public static void Gen(BackgroundWorker bw, Dictionary<string,Wcog> parts)
+    public static void Gen(Dictionary<string,Wcog> parts)
     {
-        var doc = SpreadsheetDocument.Open($"{System.Windows.Forms.Application.StartupPath}\\templates\\bending_list.xlsx", true);
-        var worksheet = ExcelHelper.GetWorksheetPartByName(doc, "list1");
-        
+        var items = new List<string[]>
+        {
+            new[]
+            {
+                "№ п/п",
+                "Номер чертежа",
+                "Позиция",
+                "Кол-во",
+                "Наименование и основные размеры",
+                "Карта раскроя",
+                "Шифр операции",
+                "Оборудование",
+            }
+        };
+
         var list = parts.Keys.ToList();
         list.Sort();
 
@@ -35,26 +46,17 @@ public static class BendingList
             var elem = parts[key];
             var row = i + 2;
 
-            ExcelHelper.UpdateCell(worksheet, (i + 1).ToString(), row, "A");
-            ExcelHelper.UpdateCell(worksheet, Settings.Default.Drawing, row, "B");
-            ExcelHelper.UpdateCell(worksheet, elem.PosNo, row, "C");
-            ExcelHelper.UpdateCell(worksheet, elem.Quantity.ToString(), row, "D");
-            ExcelHelper.UpdateCell(worksheet, GetNameAndDimentionString(elem), row, "E");
-            ExcelHelper.UpdateCell(worksheet, elem.NestedOn, row, "F");
+            items.Add(new[]
+            {
+                (i + 1).ToString(),
+                Settings.Default.Drawing,
+                elem.PosNo,
+                elem.Quantity.ToString(),
+                GetNameAndDimentionString(elem),
+                elem.NestedOn,
+            });
         }
-        
-        try
-        {
-            doc.SaveAs($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Ведомость гибки.xlsx");
-            bw.ReportProgress(0, $"{Settings.Default.Drawing} - Ведомость гибки.xlsx cоздан\r\n");
-        }
-        catch (Exception)
-        {
-            bw.ReportProgress(0, $"Не получилось сохранить {Settings.Default.Drawing} - Ведомость гибки.xlsx\r\n");
-        }
-        finally
-        {
-            doc.Close();
-        }
+
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Ведомость гибки.xlsx", items);
     }
 }
