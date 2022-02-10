@@ -96,7 +96,7 @@ internal static class DataProcessor
         var gens = Gen.Read(genFiles, qualityList);
 
         NestingList.Gen(gens);
-        MaterialList.Gen(bw, wcog, gens);
+        MaterialList.Gen(wcog, gens);
 
         bw.ReportProgress(0, "Работа завершена\r\n");
     }
