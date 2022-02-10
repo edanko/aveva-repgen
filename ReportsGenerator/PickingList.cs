@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
-using DocumentFormat.OpenXml.Packaging;
 using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
@@ -9,6 +8,7 @@ public static class PickingList
 {
     public static void Gen(BackgroundWorker bw, Dictionary<string, Wcog> wcog, Dictionary<string, Docx> docx)
     {
+        // TODO: move checking docx vs wcog to separate file
         var wcogKeys = wcog.Keys;
         var docxKeys = docx.Keys;
 
@@ -38,10 +38,29 @@ public static class PickingList
                 bw.ReportProgress(0, $"{k} конфликт типоразмеров (WCOG - Спец.): {wcog[k].Dimension} {docx[k].Dimension}\r\n");
             }
         }
-
-        var doc = SpreadsheetDocument.Open($"{System.Windows.Forms.Application.StartupPath}\\templates\\picking_list.xlsx", true);
-        var worksheet = ExcelHelper.GetWorksheetPartByName(doc, "list");
         
+        var items = new List<string[]>
+        {
+            new []
+            {
+                "№ п/п",
+                "Секция",
+                "Позиция",
+                "Кол-во",
+                "Толщина",
+                "Карта раскроя",
+                "Shape",
+                "Dimension",
+                "Total Length",
+                "Moulded Length",
+                "Масса",
+                "Маршрут",
+                "Сборка",
+                "АРЭ"
+            }
+        };
+
+
         var list = wcogKeys.ToList();
         list.Sort();
 
@@ -49,34 +68,24 @@ public static class PickingList
         {
             var key = list[i];
             var elem = wcog[key];
-            var row = i + 2;
 
-            ExcelHelper.UpdateCell(worksheet, (i+1).ToString(), row, "A");
-            ExcelHelper.UpdateCell(worksheet, elem.Block, row, "B");
-            ExcelHelper.UpdateCell(worksheet, elem.PosNo, row, "C");
-            ExcelHelper.UpdateCell(worksheet, elem.Quantity.ToString(), row, "D");
-            ExcelHelper.UpdateCell(worksheet, elem.GetThickness().ToString(CultureInfo.InvariantCulture), row, "E");
-            ExcelHelper.UpdateCell(worksheet, elem.Quality, row, "F");
-            ExcelHelper.UpdateCell(worksheet, elem.NestedOn, row, "G");
-            ExcelHelper.UpdateCell(worksheet, elem.Shape, row, "H");
-            ExcelHelper.UpdateCell(worksheet, elem.Dimension, row, "I");
-            ExcelHelper.UpdateCell(worksheet, elem.TotalLength.ToString(CultureInfo.InvariantCulture), row, "J");
-            ExcelHelper.UpdateCell(worksheet, elem.MouldedLength.ToString(CultureInfo.InvariantCulture), row, "K");
-            ExcelHelper.UpdateCell(worksheet, elem.Weight.ToString(CultureInfo.InvariantCulture), row, "L");
+            items.Add(new[]
+            {
+                (i+1).ToString(),
+                elem.Block,
+                elem.PosNo,
+                elem.Quantity.ToString(),
+                elem.GetThickness().ToString(CultureInfo.InvariantCulture),
+                elem.Quality,
+                elem.NestedOn,
+                elem.Shape,
+                elem.Dimension,
+                elem.TotalLength.ToString(CultureInfo.InvariantCulture),
+                elem.MouldedLength.ToString(CultureInfo.InvariantCulture),
+                elem.Weight.ToString(CultureInfo.InvariantCulture),
+            });
         }
-        
-        try
-        {
-            doc.SaveAs($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Перечень деталей.xlsx");
-            bw.ReportProgress(0, $"{Settings.Default.Drawing} - Перечень деталей.xlsx cоздан\r\n");
-        }
-        catch (Exception)
-        {
-            bw.ReportProgress(0, $"Не получилось сохранить {Settings.Default.Drawing} - Перечень деталей.xlsx\r\n");
-        }
-        finally
-        {
-            doc.Close();
-        }
+
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Перечень деталей.xlsx", items);
     }
 }
