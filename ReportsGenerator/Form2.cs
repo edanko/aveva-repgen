@@ -20,7 +20,7 @@ namespace ReportsGenerator
             DataProcessor.GenerateAll(backgroundWorker);
         }
 
-        private void BrowseButton_Click(object sender, System.EventArgs e)
+        private void BrowseWorkDirButton_Click(object sender, System.EventArgs e)
         {
             folderBrowserDialog1.ShowDialog();
             var path = folderBrowserDialog1.SelectedPath;
@@ -28,6 +28,17 @@ namespace ReportsGenerator
             if (string.IsNullOrEmpty(path))
             {
                 WorkFolder.Text = path;
+            }
+        }
+
+        private void BrowseQualityListButton_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+            var path = openFileDialog1.FileName;
+
+            if (string.IsNullOrEmpty(path))
+            {
+                QualityList.Text = path;
             }
         }
     }

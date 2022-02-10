@@ -39,11 +39,15 @@ namespace ReportsGenerator
             this.Block = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.Drawing = new System.Windows.Forms.TextBox();
-            this.BrowseButton = new System.Windows.Forms.Button();
+            this.BrowseWorkDirButton = new System.Windows.Forms.Button();
             this.GoButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label5 = new System.Windows.Forms.Label();
+            this.QualityList = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.WorkFolder = new System.Windows.Forms.TextBox();
+            this.BrowseQulityListButton = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // Project
@@ -51,7 +55,7 @@ namespace ReportsGenerator
             this.Project.Location = new System.Drawing.Point(130, 9);
             this.Project.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Project.Name = "Project";
-            this.Project.Size = new System.Drawing.Size(137, 23);
+            this.Project.Size = new System.Drawing.Size(303, 23);
             this.Project.TabIndex = 0;
             this.Project.Text = "10510";
             // 
@@ -80,7 +84,7 @@ namespace ReportsGenerator
             this.Order.Location = new System.Drawing.Point(130, 39);
             this.Order.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Order.Name = "Order";
-            this.Order.Size = new System.Drawing.Size(137, 23);
+            this.Order.Size = new System.Drawing.Size(303, 23);
             this.Order.TabIndex = 2;
             this.Order.Text = "056001";
             // 
@@ -99,7 +103,7 @@ namespace ReportsGenerator
             this.Block.Location = new System.Drawing.Point(130, 69);
             this.Block.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Block.Name = "Block";
-            this.Block.Size = new System.Drawing.Size(137, 23);
+            this.Block.Size = new System.Drawing.Size(303, 23);
             this.Block.TabIndex = 4;
             this.Block.Text = "06001";
             // 
@@ -118,60 +122,96 @@ namespace ReportsGenerator
             this.Drawing.Location = new System.Drawing.Point(130, 99);
             this.Drawing.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Drawing.Name = "Drawing";
-            this.Drawing.Size = new System.Drawing.Size(137, 23);
+            this.Drawing.Size = new System.Drawing.Size(303, 23);
             this.Drawing.TabIndex = 6;
             this.Drawing.Text = "10510.362112.06001";
             // 
-            // BrowseButton
+            // BrowseWorkDirButton
             // 
-            this.BrowseButton.Location = new System.Drawing.Point(14, 174);
-            this.BrowseButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.BrowseButton.Name = "BrowseButton";
-            this.BrowseButton.Size = new System.Drawing.Size(124, 27);
-            this.BrowseButton.TabIndex = 8;
-            this.BrowseButton.Text = "Выбрать папку...";
-            this.BrowseButton.UseVisualStyleBackColor = true;
-            this.BrowseButton.Click += new System.EventHandler(this.BrowseButton_Click);
+            this.BrowseWorkDirButton.Location = new System.Drawing.Point(13, 215);
+            this.BrowseWorkDirButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.BrowseWorkDirButton.Name = "BrowseWorkDirButton";
+            this.BrowseWorkDirButton.Size = new System.Drawing.Size(124, 27);
+            this.BrowseWorkDirButton.TabIndex = 8;
+            this.BrowseWorkDirButton.Text = "Выбрать папку...";
+            this.BrowseWorkDirButton.UseVisualStyleBackColor = true;
+            this.BrowseWorkDirButton.Click += new System.EventHandler(this.BrowseWorkDirButton_Click);
             // 
             // GoButton
             // 
-            this.GoButton.Location = new System.Drawing.Point(180, 174);
+            this.GoButton.Location = new System.Drawing.Point(295, 215);
             this.GoButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.GoButton.Name = "GoButton";
-            this.GoButton.Size = new System.Drawing.Size(88, 27);
+            this.GoButton.Size = new System.Drawing.Size(138, 27);
             this.GoButton.TabIndex = 9;
-            this.GoButton.Text = "Го";
+            this.GoButton.Text = "Создать ведомости";
             this.GoButton.UseVisualStyleBackColor = true;
             this.GoButton.Click += new System.EventHandler(this.GoButton_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 133);
+            this.label5.Location = new System.Drawing.Point(13, 167);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 15);
+            this.label5.Size = new System.Drawing.Size(66, 15);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Рабочая папка";
+            this.label5.Text = "Quality List";
+            // 
+            // QualityList
+            // 
+            this.QualityList.Location = new System.Drawing.Point(130, 163);
+            this.QualityList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.QualityList.Name = "QualityList";
+            this.QualityList.Size = new System.Drawing.Size(303, 23);
+            this.QualityList.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 135);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(88, 15);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Рабочая папка";
             // 
             // WorkFolder
             // 
-            this.WorkFolder.Location = new System.Drawing.Point(130, 129);
+            this.WorkFolder.Location = new System.Drawing.Point(130, 131);
             this.WorkFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.WorkFolder.Name = "WorkFolder";
-            this.WorkFolder.Size = new System.Drawing.Size(137, 23);
-            this.WorkFolder.TabIndex = 10;
+            this.WorkFolder.Size = new System.Drawing.Size(303, 23);
+            this.WorkFolder.TabIndex = 12;
             this.WorkFolder.Text = "E:\\1";
+            // 
+            // BrowseQulityListButton
+            // 
+            this.BrowseQulityListButton.Location = new System.Drawing.Point(145, 215);
+            this.BrowseQulityListButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.BrowseQulityListButton.Name = "BrowseQulityListButton";
+            this.BrowseQulityListButton.Size = new System.Drawing.Size(142, 27);
+            this.BrowseQulityListButton.TabIndex = 14;
+            this.BrowseQulityListButton.Text = "Выбрать quality list...";
+            this.BrowseQulityListButton.UseVisualStyleBackColor = true;
+            this.BrowseQulityListButton.Click += new System.EventHandler(this.BrowseQualityListButton_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 211);
-            this.Controls.Add(this.label5);
+            this.ClientSize = new System.Drawing.Size(448, 253);
+            this.Controls.Add(this.BrowseQulityListButton);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.WorkFolder);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.QualityList);
             this.Controls.Add(this.GoButton);
-            this.Controls.Add(this.BrowseButton);
+            this.Controls.Add(this.BrowseWorkDirButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Drawing);
             this.Controls.Add(this.label3);
@@ -202,10 +242,14 @@ namespace ReportsGenerator
         private System.Windows.Forms.TextBox Block;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox Drawing;
-        private System.Windows.Forms.Button BrowseButton;
+        private System.Windows.Forms.Button BrowseWorkDirButton;
         private System.Windows.Forms.Button GoButton;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox WorkFolder;
+        private System.Windows.Forms.TextBox QualityList;
+        private Label label6;
+        private TextBox WorkFolder;
+        private Button BrowseQulityListButton;
+        private OpenFileDialog openFileDialog1;
     }
 }
