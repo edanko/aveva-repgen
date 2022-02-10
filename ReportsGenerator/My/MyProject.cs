@@ -57,7 +57,7 @@ internal sealed class MyProject
     {
         [ThreadStatic] private static Hashtable _mFormBeingCreated;
 
-        public Form1 MForm1;
+        public Form2 MForm1;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DebuggerHidden]
@@ -65,7 +65,7 @@ internal sealed class MyProject
         {
         }
 
-        public Form1 Form1
+        public Form2 Form1
         {
             get
             {
