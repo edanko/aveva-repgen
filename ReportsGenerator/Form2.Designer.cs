@@ -57,7 +57,6 @@ namespace ReportsGenerator
             this.Project.Name = "Project";
             this.Project.Size = new System.Drawing.Size(303, 23);
             this.Project.TabIndex = 0;
-            this.Project.Text = "10510";
             // 
             // label1
             // 
@@ -86,7 +85,6 @@ namespace ReportsGenerator
             this.Order.Name = "Order";
             this.Order.Size = new System.Drawing.Size(303, 23);
             this.Order.TabIndex = 2;
-            this.Order.Text = "056001";
             // 
             // label3
             // 
@@ -105,7 +103,6 @@ namespace ReportsGenerator
             this.Block.Name = "Block";
             this.Block.Size = new System.Drawing.Size(303, 23);
             this.Block.TabIndex = 4;
-            this.Block.Text = "06001";
             // 
             // label4
             // 
@@ -124,7 +121,6 @@ namespace ReportsGenerator
             this.Drawing.Name = "Drawing";
             this.Drawing.Size = new System.Drawing.Size(303, 23);
             this.Drawing.TabIndex = 6;
-            this.Drawing.Text = "10510.362112.06001";
             // 
             // BrowseWorkDirButton
             // 
@@ -183,7 +179,6 @@ namespace ReportsGenerator
             this.WorkFolder.Name = "WorkFolder";
             this.WorkFolder.Size = new System.Drawing.Size(303, 23);
             this.WorkFolder.TabIndex = 12;
-            this.WorkFolder.Text = "E:\\1";
             // 
             // BrowseQulityListButton
             // 
@@ -227,6 +222,8 @@ namespace ReportsGenerator
             this.MinimizeBox = false;
             this.Name = "Form2";
             this.Text = "Генератор ведомостей";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

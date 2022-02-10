@@ -62,12 +62,12 @@ namespace ReportsGenerator.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("E:\\123")]
-        public string WorkingDir {
+        public string WorkFolder {
             get {
-                return ((string)(this["WorkingDir"]));
+                return ((string)(this["WorkFolder"]));
             }
             set {
-                this["WorkingDir"] = value;
+                this["WorkFolder"] = value;
             }
         }
         
@@ -80,6 +80,18 @@ namespace ReportsGenerator.Properties {
             }
             set {
                 this["QualityList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("TestOrder")]
+        public string Order {
+            get {
+                return ((string)(this["Order"]));
+            }
+            set {
+                this["Order"] = value;
             }
         }
     }

@@ -49,6 +49,6 @@ public static class NestingList
             });
         }
 
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Ведомость карт раскроя.xlsx", items);
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Ведомость карт раскроя.xlsx", items);
     }
 }

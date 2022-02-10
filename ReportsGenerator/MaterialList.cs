@@ -147,6 +147,6 @@ public static class MaterialList
             });
         }
 
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Сводная по материалам.xlsx", items);
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Сводная по материалам.xlsx", items);
     }
 }

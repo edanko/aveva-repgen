@@ -57,6 +57,6 @@ public static class BendingList
             });
         }
 
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Ведомость гибки.xlsx", items);
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Ведомость гибки.xlsx", items);
     }
 }

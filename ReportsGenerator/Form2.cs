@@ -41,5 +41,26 @@ namespace ReportsGenerator
                 QualityList.Text = path;
             }
         }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            Project.DataBindings.Add("Text", Properties.Settings.Default, "Project", true,
+                DataSourceUpdateMode.OnPropertyChanged);
+            Order.DataBindings.Add("Text", Properties.Settings.Default, "Order", true,
+                DataSourceUpdateMode.OnPropertyChanged);
+            Block.DataBindings.Add("Text", Properties.Settings.Default, "Block", true,
+                DataSourceUpdateMode.OnPropertyChanged);
+            Drawing.DataBindings.Add("Text", Properties.Settings.Default, "Drawing", true,
+                DataSourceUpdateMode.OnPropertyChanged);
+            WorkFolder.DataBindings.Add("Text", Properties.Settings.Default, "WorkFolder", true,
+                DataSourceUpdateMode.OnPropertyChanged);
+            QualityList.DataBindings.Add("Text", Properties.Settings.Default, "QualityList", true,
+                DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 }

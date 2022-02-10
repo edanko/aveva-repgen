@@ -8,7 +8,7 @@ internal static class DataProcessor
 {
     public static void GenerateAll(BackgroundWorker bw)
     {
-        var files = Directory.GetFiles(Settings.Default.WorkingDir);
+        var files = Directory.GetFiles(Settings.Default.WorkFolder);
 
         if (files.Length == 0)
         {

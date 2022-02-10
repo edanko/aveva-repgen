@@ -86,6 +86,6 @@ public static class PickingList
             });
         }
 
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Перечень деталей.xlsx", items);
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Перечень деталей.xlsx", items);
     }
 }

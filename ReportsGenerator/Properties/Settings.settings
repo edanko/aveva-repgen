@@ -11,11 +11,14 @@
     <Setting Name="Drawing" Type="System.String" Scope="User">
       <Value Profile="(Default)">TestDrawing</Value>
     </Setting>
-    <Setting Name="WorkingDir" Type="System.String" Scope="User">
+    <Setting Name="WorkFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">E:\123</Value>
     </Setting>
     <Setting Name="QualityList" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Order" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TestOrder</Value>
     </Setting>
   </Settings>
 </SettingsFile>
