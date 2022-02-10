@@ -34,6 +34,9 @@ namespace ReportsGenerator
 
         private void BrowseQualityListButton_Click(object sender, EventArgs e)
         {
+            openFileDialog1.ShowHelp = true;
+            openFileDialog1.FileName = "sbh_quality_list.def";
+            openFileDialog1.Filter = "Def files (*.def)|*.def";
             openFileDialog1.ShowDialog();
             var path = openFileDialog1.FileName;
 
