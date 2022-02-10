@@ -30,6 +30,7 @@ namespace ReportsGenerator
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.Project = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,77 +48,86 @@ namespace ReportsGenerator
             // 
             // Project
             // 
-            this.Project.Location = new System.Drawing.Point(111, 8);
+            this.Project.Location = new System.Drawing.Point(130, 9);
+            this.Project.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Project.Name = "Project";
-            this.Project.Size = new System.Drawing.Size(118, 20);
+            this.Project.Size = new System.Drawing.Size(137, 23);
             this.Project.TabIndex = 0;
             this.Project.Text = "10510";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 11);
+            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.Size = new System.Drawing.Size(47, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Проект";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 37);
+            this.label2.Location = new System.Drawing.Point(13, 43);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(37, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "Заказ";
             // 
             // Order
             // 
-            this.Order.Location = new System.Drawing.Point(111, 34);
+            this.Order.Location = new System.Drawing.Point(130, 39);
+            this.Order.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Order.Name = "Order";
-            this.Order.Size = new System.Drawing.Size(118, 20);
+            this.Order.Size = new System.Drawing.Size(137, 23);
             this.Order.TabIndex = 2;
             this.Order.Text = "056001";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 63);
+            this.label3.Location = new System.Drawing.Point(13, 73);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.Size = new System.Drawing.Size(47, 15);
             this.label3.TabIndex = 5;
             this.label3.Text = "Секция";
             // 
             // Block
             // 
-            this.Block.Location = new System.Drawing.Point(111, 60);
+            this.Block.Location = new System.Drawing.Point(130, 69);
+            this.Block.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Block.Name = "Block";
-            this.Block.Size = new System.Drawing.Size(118, 20);
+            this.Block.Size = new System.Drawing.Size(137, 23);
             this.Block.TabIndex = 4;
             this.Block.Text = "06001";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 89);
+            this.label4.Location = new System.Drawing.Point(13, 103);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(48, 15);
             this.label4.TabIndex = 7;
             this.label4.Text = "Чертёж";
             // 
             // Drawing
             // 
-            this.Drawing.Location = new System.Drawing.Point(111, 86);
+            this.Drawing.Location = new System.Drawing.Point(130, 99);
+            this.Drawing.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Drawing.Name = "Drawing";
-            this.Drawing.Size = new System.Drawing.Size(118, 20);
+            this.Drawing.Size = new System.Drawing.Size(137, 23);
             this.Drawing.TabIndex = 6;
             this.Drawing.Text = "10510.362112.06001";
             // 
             // BrowseButton
             // 
-            this.BrowseButton.Location = new System.Drawing.Point(12, 151);
+            this.BrowseButton.Location = new System.Drawing.Point(14, 174);
+            this.BrowseButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BrowseButton.Name = "BrowseButton";
-            this.BrowseButton.Size = new System.Drawing.Size(106, 23);
+            this.BrowseButton.Size = new System.Drawing.Size(124, 27);
             this.BrowseButton.TabIndex = 8;
             this.BrowseButton.Text = "Выбрать папку...";
             this.BrowseButton.UseVisualStyleBackColor = true;
@@ -125,9 +135,10 @@ namespace ReportsGenerator
             // 
             // GoButton
             // 
-            this.GoButton.Location = new System.Drawing.Point(154, 151);
+            this.GoButton.Location = new System.Drawing.Point(180, 174);
+            this.GoButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.GoButton.Name = "GoButton";
-            this.GoButton.Size = new System.Drawing.Size(75, 23);
+            this.GoButton.Size = new System.Drawing.Size(88, 27);
             this.GoButton.TabIndex = 9;
             this.GoButton.Text = "Го";
             this.GoButton.UseVisualStyleBackColor = true;
@@ -136,25 +147,27 @@ namespace ReportsGenerator
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 115);
+            this.label5.Location = new System.Drawing.Point(13, 133);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 13);
+            this.label5.Size = new System.Drawing.Size(88, 15);
             this.label5.TabIndex = 11;
             this.label5.Text = "Рабочая папка";
             // 
             // WorkFolder
             // 
-            this.WorkFolder.Location = new System.Drawing.Point(111, 112);
+            this.WorkFolder.Location = new System.Drawing.Point(130, 129);
+            this.WorkFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.WorkFolder.Name = "WorkFolder";
-            this.WorkFolder.Size = new System.Drawing.Size(118, 20);
+            this.WorkFolder.Size = new System.Drawing.Size(137, 23);
             this.WorkFolder.TabIndex = 10;
             this.WorkFolder.Text = "E:\\1";
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(241, 183);
+            this.ClientSize = new System.Drawing.Size(281, 211);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.WorkFolder);
             this.Controls.Add(this.GoButton);
@@ -168,6 +181,8 @@ namespace ReportsGenerator
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Project);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form2";
