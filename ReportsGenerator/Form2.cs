@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ReportsGenerator.Properties;
+using System.ComponentModel;
 
 namespace ReportsGenerator
 {
@@ -44,6 +45,12 @@ namespace ReportsGenerator
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            if (Settings.Default.HasSetDefaults)
+            {
+                Location = Settings.Default.Location;
+                Size = Settings.Default.Size;
+            }
+
             Project.DataBindings.Add("Text", Properties.Settings.Default, "Project", true,
                 DataSourceUpdateMode.OnPropertyChanged);
             Order.DataBindings.Add("Text", Properties.Settings.Default, "Order", true,
@@ -60,6 +67,19 @@ namespace ReportsGenerator
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (WindowState == FormWindowState.Normal)
+            {
+                Settings.Default.Location = Location;
+                Settings.Default.Size = Size;
+            }
+            else
+            {
+                Settings.Default.Location = RestoreBounds.Location;
+                Settings.Default.Size = RestoreBounds.Size;
+            }
+
+            Settings.Default.HasSetDefaults = true;
+
             Properties.Settings.Default.Save();
         }
     }
