@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using DocumentFormat.OpenXml;
+﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 
@@ -9,21 +6,7 @@ namespace ReportsGenerator;
 
 public static class ExcelHelper
 {
-    private static Cell InsertCell(Row row, int columnIndex)
-    {
-        var cellReference = $"{(char) (columnIndex + 64)}{row.RowIndex}";
-
-        var refCell = row.Descendants<Cell>().LastOrDefault();
-
-        var newCell = new Cell {CellReference = cellReference};
-        row.InsertAfter(newCell, refCell);
-
-        return newCell;
-    }
-
-
-
-    public static void CreateXlsx(string filepath, string[] header, List<string[]> items)
+    public static void CreateXlsx(string filepath, List<string[]> items)
     {
         var spreadsheetDocument =
             SpreadsheetDocument.Create(filepath, SpreadsheetDocumentType.Workbook);
@@ -38,61 +21,29 @@ public static class ExcelHelper
         {
             var sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
 
-            var sheet = new Sheet {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "mySheet"};
+            var sheet = new Sheet {Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Лист 1"};
             sheets.Append(sheet);
         }
 
         var sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-
-        var headerRow = new Row {RowIndex = 1};
+        
         if (sheetData != null)
         {
-            sheetData.Append(headerRow);
-
-            for (var i = 0; i < header.Length; i++)
+            for (var i = 0; i < items.Count; i++)
             {
-                var h = header[i];
-                var cell = InsertCell(headerRow, i + 1);
-                cell.CellValue = new CellValue(h);
-                cell.DataType = new EnumValue<CellValues>(CellValues.String);
-            }
-
-            var rowIndex = 2;
-            foreach (var item in items)
-            {
-                var row = new Row {RowIndex = (uint) rowIndex};
-                sheetData.Append(row);
-
-                for (var j = 0; j < item.Length; j++)
+                for (var j = 0; j < items[i].Length; j++)
                 {
-                    var cell = InsertCell(row, j + 1);
-                    cell.CellValue = new CellValue(item[j]);
-                    cell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    UpdateCell(worksheetPart, items[i][j], i, j + 1);
                 }
-
-                rowIndex++;
             }
         }
-
         spreadsheetDocument.Close();
     }
 
-    static void CloneSheet(SpreadsheetDocument spreadsheetDocument, string sheetName, string clonedSheetName)
+    public static void UpdateCell(WorksheetPart worksheetPart, string text, int rowIndex, int columnIndex)
     {
-        WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
-        WorksheetPart sourceSheetPart = GetWorkSheetPart(workbookPart, sheetName);
-        Sheets sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
-
-        SpreadsheetDocument tempSheet = SpreadsheetDocument.Create(new MemoryStream(), spreadsheetDocument.DocumentType);
-        WorkbookPart tempWorkbookPart = tempSheet.AddWorkbookPart();
-        WorksheetPart tempWorksheetPart = tempWorkbookPart.AddPart(sourceSheetPart);
-        WorksheetPart clonedSheet = workbookPart.AddPart(tempWorksheetPart);
-
-        Sheet copiedSheet = new Sheet();
-        copiedSheet.Name = clonedSheetName;
-        copiedSheet.Id = workbookPart.GetIdOfPart(clonedSheet);
-        copiedSheet.SheetId = (uint)sheets.ChildElements.Count + 1;
-        sheets.Append(copiedSheet);
+        var columnName = $"{(char)(columnIndex + 64)}";
+        UpdateCell(worksheetPart, text,rowIndex, columnName);
     }
 
     public static void UpdateCell(WorksheetPart worksheetPart, string text, int rowIndex, string columnName)
