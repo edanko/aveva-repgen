@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
 using DocumentFormat.OpenXml.Packaging;
-using ReportsGenerator.My;
+using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
@@ -138,12 +135,12 @@ public static class MaterialList
 
         try
         {
-            doc.SaveAs($"{MySettingsProperty.Settings.WorkDir}\\{MySettingsProperty.Settings.Draw} - Сводная материальная ведомость.xlsx");
-            bw.ReportProgress(0, $"{MySettingsProperty.Settings.Draw} - Сводная материальная ведомость.xlsx cоздан\r\n");
+            doc.SaveAs($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Сводная материальная ведомость.xlsx");
+            bw.ReportProgress(0, $"{Settings.Default.Drawing} - Сводная материальная ведомость.xlsx cоздан\r\n");
         }
         catch (Exception)
         {
-            bw.ReportProgress(0, $"Не получилось сохранить {MySettingsProperty.Settings.Draw} - Сводная материальная ведомость.xlsx\r\n");
+            bw.ReportProgress(0, $"Не получилось сохранить {Settings.Default.Drawing} - Сводная материальная ведомость.xlsx\r\n");
         }
         finally
         {
@@ -404,7 +401,7 @@ public static class MaterialList
             $"сек.{MySettingsProperty.Settings.Block}");
         worksheet.get_Range("E1:I1", Missing.Value).Merge(Missing.Value);
         worksheet.get_Range("E1", Missing.Value).set_Value(Missing.Value,
-            $"черт.{MySettingsProperty.Settings.Draw}");
+            $"черт.{Settings.Default.Drawing}");
         worksheet.get_Range("C2", Missing.Value).set_Value(Missing.Value, "Name");
         worksheet.get_Range("D2", Missing.Value).set_Value(Missing.Value, "Quality");
         worksheet.get_Range("E2", Missing.Value).set_Value(Missing.Value, "Length");
@@ -638,7 +635,7 @@ public static class MaterialList
         worksheet.get_Range($"A1:I{Conversions.ToString(num30)}", Missing.Value).Borders.Weight = 2;
         try
         {
-            workbook.SaveAs($"{MySettingsProperty.Settings.WorkDir}\\M.B._{MySettingsProperty.Settings.Block}.xls");
+            workbook.SaveAs($"{Settings.Default.WorkingDir}\\M.B._{MySettingsProperty.Settings.Block}.xls");
             bw.ReportProgress(0, $"M.B._{MySettingsProperty.Settings.Block}.xls cоздан\r\n");
         }
         catch (Exception)

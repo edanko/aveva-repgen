@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ReportsGenerator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Project" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TestProject</Value>
+    </Setting>
+    <Setting Name="Block" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TestBlock</Value>
+    </Setting>
+    <Setting Name="Drawing" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TestDrawing</Value>
+    </Setting>
+    <Setting Name="WorkingDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E:\123</Value>
+    </Setting>
+    <Setting Name="QualityList" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

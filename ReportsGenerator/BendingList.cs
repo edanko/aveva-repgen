@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using DocumentFormat.OpenXml.Packaging;
-using ReportsGenerator.My;
+using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
@@ -39,7 +36,7 @@ public static class BendingList
             var row = i + 2;
 
             ExcelHelper.UpdateCell(worksheet, (i + 1).ToString(), row, "A");
-            ExcelHelper.UpdateCell(worksheet, MySettingsProperty.Settings.Draw, row, "B");
+            ExcelHelper.UpdateCell(worksheet, Settings.Default.Drawing, row, "B");
             ExcelHelper.UpdateCell(worksheet, elem.PosNo, row, "C");
             ExcelHelper.UpdateCell(worksheet, elem.Quantity.ToString(), row, "D");
             ExcelHelper.UpdateCell(worksheet, GetNameAndDimentionString(elem), row, "E");
@@ -48,12 +45,12 @@ public static class BendingList
         
         try
         {
-            doc.SaveAs($"{MySettingsProperty.Settings.WorkDir}\\{MySettingsProperty.Settings.Draw} - Ведомость гибки.xlsx");
-            bw.ReportProgress(0, $"{MySettingsProperty.Settings.Draw} - Ведомость гибки.xlsx cоздан\r\n");
+            doc.SaveAs($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Ведомость гибки.xlsx");
+            bw.ReportProgress(0, $"{Settings.Default.Drawing} - Ведомость гибки.xlsx cоздан\r\n");
         }
         catch (Exception)
         {
-            bw.ReportProgress(0, $"Не получилось сохранить {MySettingsProperty.Settings.Draw} - Ведомость гибки.xlsx\r\n");
+            bw.ReportProgress(0, $"Не получилось сохранить {Settings.Default.Drawing} - Ведомость гибки.xlsx\r\n");
         }
         finally
         {

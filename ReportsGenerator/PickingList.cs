@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using DocumentFormat.OpenXml.Packaging;
-using ReportsGenerator.My;
+using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
@@ -70,12 +67,12 @@ public static class PickingList
         
         try
         {
-            doc.SaveAs($"{MySettingsProperty.Settings.WorkDir}\\{MySettingsProperty.Settings.Draw} - Перечень деталей.xlsx");
-            bw.ReportProgress(0, $"{MySettingsProperty.Settings.Draw} - Перечень деталей.xlsx cоздан\r\n");
+            doc.SaveAs($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Перечень деталей.xlsx");
+            bw.ReportProgress(0, $"{Settings.Default.Drawing} - Перечень деталей.xlsx cоздан\r\n");
         }
         catch (Exception)
         {
-            bw.ReportProgress(0, $"Не получилось сохранить {MySettingsProperty.Settings.Draw} - Перечень деталей.xlsx\r\n");
+            bw.ReportProgress(0, $"Не получилось сохранить {Settings.Default.Drawing} - Перечень деталей.xlsx\r\n");
         }
         finally
         {

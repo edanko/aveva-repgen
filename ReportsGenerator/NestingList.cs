@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
 using DocumentFormat.OpenXml.Packaging;
-using ReportsGenerator.My;
+using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
@@ -35,12 +33,12 @@ public static class NestingList
 
         try
         {
-            doc.SaveAs($"{MySettingsProperty.Settings.WorkDir}\\{MySettingsProperty.Settings.Draw} - Ведомость карт раскроя.xlsx");
-            bw.ReportProgress(0, $"{MySettingsProperty.Settings.Draw} - Ведомость карт раскроя.xlsx cоздан\r\n");
+            doc.SaveAs($"{Settings.Default.WorkingDir}\\{Settings.Default.Drawing} - Ведомость карт раскроя.xlsx");
+            bw.ReportProgress(0, $"{Settings.Default.Drawing} - Ведомость карт раскроя.xlsx cоздан\r\n");
         }
         catch (Exception)
         {
-            bw.ReportProgress(0, $"Не получилось сохранить {MySettingsProperty.Settings.Draw} - Ведомость карт раскроя.xlsx\r\n");
+            bw.ReportProgress(0, $"Не получилось сохранить {Settings.Default.Drawing} - Ведомость карт раскроя.xlsx\r\n");
         }
         finally
         {

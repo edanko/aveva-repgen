@@ -1,9 +1,6 @@
-﻿using ReportsGenerator.My;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Text.RegularExpressions;
+using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
@@ -11,7 +8,7 @@ internal static class DataProcessor
 {
     public static void GenerateAll(BackgroundWorker bw)
     {
-        var files = Directory.GetFiles(MySettingsProperty.Settings.WorkDir);
+        var files = Directory.GetFiles(Settings.Default.WorkingDir);
 
         if (files.Length == 0)
         {
@@ -22,14 +19,14 @@ internal static class DataProcessor
         bw.ReportProgress(0, "Начало работы...\r\n");
 
 
-        if (!File.Exists(MySettingsProperty.Settings.QualityList))
+        if (!File.Exists(Settings.Default.QualityList))
         {
             bw.ReportProgress(0,
                 "Не удается получить данные о плотностях материалов! Проверьте существование и правильное форматирование файла sbh_quality_list.def. Нужно выбрать файл в настройках\r\n");
             return;
         }
 
-        var qualityList = QualityList.Read(MySettingsProperty.Settings.QualityList);
+        var qualityList = QualityList.Read(Settings.Default.QualityList);
         var wcogFile = "";
         var docxFile = "";
         var genFiles = new List<string>();
