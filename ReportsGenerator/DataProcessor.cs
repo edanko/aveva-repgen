@@ -74,7 +74,8 @@ internal static class DataProcessor
             return;
         }
 
-        PickingList.Gen(bw, wcog, docx);
+        ComparisonLog.Gen(wcog, docx);
+        PickingList.Gen(wcog);
 
         var bentParts = wcog.Where(x => x.Value.IsBent).ToDictionary(x => x.Key, x => x.Value);
         if (bentParts.Count == 0)
