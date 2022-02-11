@@ -43,7 +43,6 @@ public static class BendingList
         {
             var key = list[i];
             var elem = parts[key];
-            var row = i + 2;
 
             items.Add(new[]
             {
