@@ -35,7 +35,7 @@ public static class NestingList
             {
                 (i + 1).ToString(),
                 elem.NestName,
-                elem.RawThickness.ToString("F1"),
+                elem.RawThickness.ToString("F1", CultureInfo.InvariantCulture),
                 elem.Quality,
                 $"{elem.RawLength:G}x{elem.RawWidth:G}",
                 elem.NoOfParts.ToString(),
