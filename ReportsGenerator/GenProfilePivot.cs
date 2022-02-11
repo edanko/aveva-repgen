@@ -33,6 +33,15 @@ public class ProfilePivot
             p.Length += prof.Value.TotalLength;
         }
 
+        profilePivot.Sort((x, y) =>
+        {
+            if(int.TryParse(x.Type.Split("*")[^1], out var a) && int.TryParse(y.Type.Split("*")[^1], out var b))
+            {
+                return a.CompareTo(b);
+            }
+            return String.Compare(x.Type.Split("*")[^1], y.Type.Split("*")[^1], StringComparison.Ordinal);
+        });
+        
         var items = new List<string[]>
         {
             new []

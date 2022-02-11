@@ -20,7 +20,15 @@ public static class ComparisonLog
         var wcogKeys = wcog.Keys;
         var docxKeys = docx.Keys;
 
-        var keysOnlyInDocx = docxKeys.Except(wcogKeys);
+        var keysOnlyInDocx = docxKeys.Except(wcogKeys).ToList();
+        keysOnlyInDocx.Sort((x, y) =>
+        {
+            if (int.TryParse(x, out var a) && int.TryParse(y, out var b))
+            {
+                return a.CompareTo(b);
+            }
+            return String.Compare(x, y, StringComparison.Ordinal);
+        });
         foreach (var k in keysOnlyInDocx)
         {
             items.Add(new[]
@@ -30,7 +38,15 @@ public static class ComparisonLog
             });
         }
 
-        var keysOnlyInWcog = wcogKeys.Except(docxKeys);
+        var keysOnlyInWcog = wcogKeys.Except(docxKeys).ToList();
+        keysOnlyInWcog.Sort((x, y) =>
+        {
+            if (int.TryParse(x, out var a) && int.TryParse(y, out var b))
+            {
+                return a.CompareTo(b);
+            }
+            return String.Compare(x, y, StringComparison.Ordinal);
+        });
         foreach (var k in keysOnlyInWcog)
         {
             items.Add(new[]
@@ -41,7 +57,14 @@ public static class ComparisonLog
         }
 
         var common = wcogKeys.Intersect(docxKeys).ToList();
-        common.Sort();
+        common.Sort((x, y) =>
+        {
+            if (int.TryParse(x, out var a) && int.TryParse(y, out var b))
+            {
+                return a.CompareTo(b);
+            }
+            return String.Compare(x, y, StringComparison.Ordinal);
+        });
         foreach (var k in common)
         {
             if (wcog[k].Quality != docx[k].Quality)

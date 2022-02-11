@@ -56,6 +56,7 @@ public class PlatePivot
             p.TotalBurning += g.TotalBurning;
             p.TotalIdle += g.TotalIdle;
         }
+        platePivot.Sort((x, y) => x.RawThickness.CompareTo(y.RawThickness));
 
         var items = new List<string[]>
         {

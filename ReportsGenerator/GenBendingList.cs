@@ -37,7 +37,14 @@ public static class BendingList
         };
 
         var list = parts.Keys.ToList();
-        list.Sort();
+        list.Sort((x, y) =>
+        {
+            if(int.TryParse(x, out var a) && int.TryParse(y, out var b))
+            {
+                return a.CompareTo(b);
+            }
+            return String.Compare(x, y, StringComparison.Ordinal);
+        });
 
         for (var i = 0; i < list.Count; i++)
         {
