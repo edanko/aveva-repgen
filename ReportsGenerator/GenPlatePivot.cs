@@ -4,26 +4,16 @@ using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
-class PlatePivot
+public class PlatePivot
 {
-    public double RawThickness { get; set; }
-    public string Quality { get; set; }
-    public double RawLength { get; set; }
-    public double RawWidth { get; set; }
-    public int Quantity { get; set; }
-    public double TotalBurning { get; set; }
-    public double TotalIdle { get; set; }
-}
+    private double RawThickness { get; set; }
+    private string Quality { get; set; }
+    private double RawLength { get; set; }
+    private double RawWidth { get; set; }
+    private int Quantity { get; set; }
+    private double TotalBurning { get; set; }
+    private double TotalIdle { get; set; }
 
-class ProfilePivot
-{
-    public string Quality { get; set; }
-    public string Type { get; set; }
-    public double Length { get; set; }
-}
-
-public static class MaterialList
-{
     private static string Regexp(string s, string exp)
     {
         var regex = new Regex(exp);
@@ -36,9 +26,8 @@ public static class MaterialList
         return result;
     }
 
-    public static void Gen(Dictionary<string, Wcog> wcog, List<Gen> gens)
+    public static void Gen(List<Gen> gens)
     {
-        // TODO: split plate and profile to different files
         var platePivot = new List<PlatePivot>();
         foreach (var g in gens)
         {
@@ -83,12 +72,9 @@ public static class MaterialList
             }
         };
 
-        var startRow = 2;
-
         for (var i = 0; i < platePivot.Count; i++)
         {
             var elem = platePivot[i];
-            var row = i + startRow;
 
             items.Add(new[]
             {
@@ -103,50 +89,7 @@ public static class MaterialList
 
             });
         }
-        
-        var profiles = wcog.Where(x => x.Value.IsProfile).ToDictionary(x => x.Key, x => x.Value);
-        var profilePivot = new List<ProfilePivot>();
-        foreach (var prof in profiles)
-        {
-            var p = profilePivot.Find(x =>
-                x.Quality == prof.Value.Quality &&
-                x.Type == prof.Value.Shape+prof.Value.Dimension);
 
-            if (p == null)
-            {
-                p = new ProfilePivot
-                {
-                    Quality = prof.Value.Quality,
-                    Type = prof.Value.Shape + prof.Value.Dimension
-                };
-
-                profilePivot.Add(p);
-            }
-
-            p.Length += prof.Value.TotalLength;
-        }
-
-        var nextRow = startRow + platePivot.Count + 2;
-
-        items.Add(new [] {""});
-        items.Add(new[] {"Сводная по профилю"});
-
-        nextRow += 2;
-
-        for (var i = 0; i < profilePivot.Count; i++)
-        {
-            var elem = profilePivot[i];
-            var row = i + nextRow;
-
-            items.Add(new[]
-            {
-                (i + 1).ToString(),
-                elem.Type,
-                elem.Quality,
-                elem.Length.ToString(CultureInfo.InvariantCulture),
-            });
-        }
-
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Сводная по материалам.xlsx", items);
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Сводная по листам.xlsx", items);
     }
 }

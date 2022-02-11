@@ -89,7 +89,8 @@ internal static class DataProcessor
         var gens = Gen.Read(genFiles, qualityList);
 
         NestingList.Gen(gens);
-        MaterialList.Gen(wcog, gens);
+        PlatePivot.Gen(gens);
+        ProfilePivot.Gen(wcog);
 
         MessageBox.Show("Работа завершена");
     }
