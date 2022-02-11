@@ -6,23 +6,20 @@ namespace ReportsGenerator;
 
 internal static class DataProcessor
 {
-    public static void GenerateAll(BackgroundWorker bw)
+    public static void GenerateAll()
     {
         var files = Directory.GetFiles(Settings.Default.WorkFolder);
 
         if (files.Length == 0)
         {
-            bw.ReportProgress(0, "В выбранной папке отсутствуют файлы!\r\n");
+            MessageBox.Show("В выбранной папке отсутствуют файлы!");
             return;
         }
-
-        bw.ReportProgress(0, "Начало работы...\r\n");
 
 
         if (!File.Exists(Settings.Default.QualityList))
         {
-            bw.ReportProgress(0,
-                "Не удается получить данные о плотностях материалов! Проверьте существование и правильное форматирование файла sbh_quality_list.def. Нужно выбрать файл в настройках\r\n");
+            MessageBox.Show("Не удается получить данные о плотностях материалов! Проверьте существование и правильное форматирование файла sbh_quality_list.def");
             return;
         }
 
@@ -50,27 +47,27 @@ internal static class DataProcessor
 
         if (string.IsNullOrEmpty(wcogFile))
         {
-            bw.ReportProgress(0, "Файл wcog не обнаружен\r\n");
+            MessageBox.Show("Файл wcog не обнаружен");
             return;
         }
 
         if (string.IsNullOrEmpty(docxFile))
         {
-            bw.ReportProgress(0, "Файл спецификации не обнаружен\r\n");
+            MessageBox.Show("Файл спецификации не обнаружен");
             return;
         }
 
         var wcog = Wcog.Read(wcogFile);
         if (wcog.Count == 0)
         {
-            bw.ReportProgress(0, "Из wcog'а ничего не прочитано\r\n");
+            MessageBox.Show("Из wcog'а ничего не прочитано");
             return;
         }
 
-        var docx = Docx.Read(bw, docxFile);
+        var docx = Docx.Read(docxFile);
         if (docx.Count == 0)
         {
-            bw.ReportProgress(0, "Из спецификации ничего не прочитано\r\n");
+            MessageBox.Show("Из спецификации ничего не прочитано");
             return;
         }
 
@@ -78,19 +75,14 @@ internal static class DataProcessor
         PickingList.Gen(wcog);
 
         var bentParts = wcog.Where(x => x.Value.IsBent).ToDictionary(x => x.Key, x => x.Value);
-        if (bentParts.Count == 0)
+        if (bentParts.Count > 0)
         {
-            bw.ReportProgress(0, "Гнутые детали не обнаружены!\r\n");
-        }
-        else
-        { 
-            bw.ReportProgress(0, $"Гнутых деталей найдено: {bentParts.Count}\r\n");
             BendingList.Gen(bentParts);
         }
 
         if (genFiles.Count == 0)
         {
-            bw.ReportProgress(0, "Файлы GEN не обнаружены в заданном расположении, генерация ведомости карт раскроя и материальной ведомости невозможна!\r\n");
+            MessageBox.Show("Файлы GEN не обнаружены в заданном расположении, генерация ведомости карт раскроя и материальной ведомости невозможна!");
             return;
         }
 
@@ -99,7 +91,7 @@ internal static class DataProcessor
         NestingList.Gen(gens);
         MaterialList.Gen(wcog, gens);
 
-        bw.ReportProgress(0, "Работа завершена\r\n");
+        MessageBox.Show("Работа завершена");
     }
 
     public static string Regexp(string s, string exp)

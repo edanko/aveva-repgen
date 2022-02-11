@@ -17,8 +17,7 @@ namespace ReportsGenerator
                 MessageBox.Show("Папка не существует.");
                 return;
             }
-            BackgroundWorker backgroundWorker = (BackgroundWorker)sender;
-            DataProcessor.GenerateAll(backgroundWorker);
+            DataProcessor.GenerateAll();
         }
 
         private void BrowseWorkDirButton_Click(object sender, System.EventArgs e)
