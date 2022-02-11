@@ -16,6 +16,7 @@ public static class PickingList
                 "Позиция",
                 "Кол-во",
                 "Толщина",
+                "Марка",
                 "Карта раскроя",
                 "Shape",
                 "Dimension",
@@ -27,7 +28,6 @@ public static class PickingList
                 "АРЭ"
             }
         };
-
 
         var list = wcog.Keys.ToList();
         list.Sort();
