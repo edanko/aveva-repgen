@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using DocumentFormat.OpenXml.Packaging;
 using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;

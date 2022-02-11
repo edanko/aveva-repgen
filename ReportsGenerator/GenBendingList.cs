@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using ReportsGenerator.Properties;
+﻿using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
