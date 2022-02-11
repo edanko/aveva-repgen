@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml;
+﻿using System.Globalization;
+using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 
@@ -50,7 +51,17 @@ public static class ExcelHelper
                 {
                     var cell = InsertCell(row, j + 1);
                     cell.CellValue = new CellValue(items[i][j]);
-                    cell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    
+                    var isNumber = double.TryParse(items[i][j], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _);
+
+                    if (isNumber)
+                    {
+                        cell.DataType = new EnumValue<CellValues>(CellValues.Number);
+                    }
+                    else
+                    {
+                        cell.DataType = new EnumValue<CellValues>(CellValues.String);
+                    }
                 }
             }
         }
