@@ -1,5 +1,4 @@
 ﻿using ReportsGenerator.Properties;
-using System.ComponentModel;
 
 namespace ReportsGenerator
 {
