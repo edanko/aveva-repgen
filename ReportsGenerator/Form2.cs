@@ -9,7 +9,7 @@ namespace ReportsGenerator
             InitializeComponent();
         }
 
-        private void GoButton_Click(object sender, System.EventArgs e)
+        private void GoButton_Click(object sender, EventArgs e)
         {
             if (!Directory.Exists(WorkFolder.Text))
             {
@@ -19,7 +19,7 @@ namespace ReportsGenerator
             DataProcessor.GenerateAll();
         }
 
-        private void BrowseWorkDirButton_Click(object sender, System.EventArgs e)
+        private void BrowseWorkDirButton_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.ShowDialog();
             var path = folderBrowserDialog1.SelectedPath;
@@ -52,17 +52,17 @@ namespace ReportsGenerator
                 Size = Settings.Default.Size;
             }
 
-            Project.DataBindings.Add("Text", Properties.Settings.Default, "Project", true,
+            Project.DataBindings.Add("Text", Settings.Default, "Project", true,
                 DataSourceUpdateMode.OnPropertyChanged);
-            Order.DataBindings.Add("Text", Properties.Settings.Default, "Order", true,
+            Order.DataBindings.Add("Text", Settings.Default, "Order", true,
                 DataSourceUpdateMode.OnPropertyChanged);
-            Block.DataBindings.Add("Text", Properties.Settings.Default, "Block", true,
+            Block.DataBindings.Add("Text", Settings.Default, "Block", true,
                 DataSourceUpdateMode.OnPropertyChanged);
-            Drawing.DataBindings.Add("Text", Properties.Settings.Default, "Drawing", true,
+            Drawing.DataBindings.Add("Text", Settings.Default, "Drawing", true,
                 DataSourceUpdateMode.OnPropertyChanged);
-            WorkFolder.DataBindings.Add("Text", Properties.Settings.Default, "WorkFolder", true,
+            WorkFolder.DataBindings.Add("Text", Settings.Default, "WorkFolder", true,
                 DataSourceUpdateMode.OnPropertyChanged);
-            QualityList.DataBindings.Add("Text", Properties.Settings.Default, "QualityList", true,
+            QualityList.DataBindings.Add("Text", Settings.Default, "QualityList", true,
                 DataSourceUpdateMode.OnPropertyChanged);
         }
 
@@ -81,7 +81,7 @@ namespace ReportsGenerator
 
             Settings.Default.HasSetDefaults = true;
 
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
     }
 }
