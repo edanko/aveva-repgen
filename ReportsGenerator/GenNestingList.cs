@@ -48,6 +48,6 @@ public static class NestingList
             });
         }
 
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Ведомость карт раскроя.xlsx", items);
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Перечень карт раскроя.xlsx", items);
     }
 }
