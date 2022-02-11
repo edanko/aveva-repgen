@@ -89,7 +89,7 @@ internal static class DataProcessor
         gens.Sort((a, b) => a.RawThickness.CompareTo(b.RawThickness));
 
         NestingList.Gen(gens);
-        PlatePivot.Gen(gens);
+        PlatePivot.Gen(gens, qualityList);
         ProfilePivot.Gen(wcog);
 
         MessageBox.Show("Работа завершена");

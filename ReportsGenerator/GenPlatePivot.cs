@@ -10,10 +10,8 @@ public class PlatePivot
     private double RawLength { get; set; }
     private double RawWidth { get; set; }
     private int Quantity { get; set; }
-    private double TotalBurning { get; set; }
-    private double TotalIdle { get; set; }
 
-    public static void Gen(List<Gen> gens)
+    public static void Gen(List<Gen> gens, Dictionary<string, double> qualityList)
     {
         var platePivot = new List<PlatePivot>();
         foreach (var g in gens)
@@ -39,9 +37,6 @@ public class PlatePivot
             {
                 p.Quantity++;
             }
-
-            p.TotalBurning += g.TotalBurning;
-            p.TotalIdle += g.TotalIdle;
         }
         platePivot.Sort((x, y) => x.RawThickness.CompareTo(y.RawThickness));
 
@@ -50,13 +45,13 @@ public class PlatePivot
             new []
             {
                 "№ п/п",
-                "Марка",
-                "Толщина",
-                "Длина",
-                "Ширина",
-                "Кол-во",
-                "Длина реза",
-                "Длина ХХ",
+                "Толщина, мм",
+                "Ширина, мм",
+                "Длина, мм",
+                "Марка материала",
+                "Кол-во листов, шт.",
+                "Вес 1-го листа, кг",
+                "Общий вес, кг",
             }
         };
 
@@ -64,17 +59,17 @@ public class PlatePivot
         {
             var elem = platePivot[i];
 
+            var plateWeight = elem.RawThickness * elem.RawWidth * elem.RawLength * qualityList[elem.Quality];
             items.Add(new[]
             {
                 (i + 1).ToString(),
-                elem.Quality,
                 elem.RawThickness.ToString(CultureInfo.InvariantCulture),
-                elem.RawLength.ToString(CultureInfo.InvariantCulture),
                 elem.RawWidth.ToString(CultureInfo.InvariantCulture),
+                elem.RawLength.ToString(CultureInfo.InvariantCulture),
+                elem.Quality,
                 elem.Quantity.ToString(),
-                elem.TotalBurning.ToString(CultureInfo.InvariantCulture),
-                elem.TotalIdle.ToString(CultureInfo.InvariantCulture),
-
+                plateWeight.ToString(CultureInfo.InvariantCulture),
+                (plateWeight*elem.Quantity).ToString(CultureInfo.InvariantCulture)
             });
         }
 
