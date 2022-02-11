@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Text.RegularExpressions;
 using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
@@ -13,18 +12,6 @@ public class PlatePivot
     private int Quantity { get; set; }
     private double TotalBurning { get; set; }
     private double TotalIdle { get; set; }
-
-    private static string Regexp(string s, string exp)
-    {
-        var regex = new Regex(exp);
-        var result = "";
-        var matchCollection = regex.Matches(s);
-        var num = 0;
-
-        var num2 = matchCollection.Count - 1;
-        for (var i = num; i <= num2; i++) result = matchCollection[i].Value;
-        return result;
-    }
 
     public static void Gen(List<Gen> gens)
     {
