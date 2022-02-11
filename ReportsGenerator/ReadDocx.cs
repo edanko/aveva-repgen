@@ -1,8 +1,6 @@
-﻿using System.Data;
-using System.Globalization;
+﻿using System.Globalization;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using DataTable = System.Data.DataTable;
 
 namespace ReportsGenerator;
 
@@ -15,24 +13,42 @@ public class Docx
     public string Quality { get; private set; }
     public double Weight { get; private set; }
 
+    private static string NormalizeProfileDimension(string dimension)
+    {
+        // TODO: add other profile dimensions
+        var dict = new Dictionary<string, string>
+        {
+            {"5", "50*4.0"},
+            {"5.5", "55*4.5"},
+            {"6", "60*5.0"},
+            {"7", "70*5.0"},
+            {"8", "80*5.0"},
+            {"9", "90*5.5"},
+            {"10", "100*6.0"},
+            {"12", "120*6.5"},
+            {"14а", "140*7.0"},
+            {"14б", "140*9.0"},
+            {"16а", "160*8.0"},
+            {"16б", "160*10.0"},
+            {"18а", "180*9.0"},
+            {"18б", "180*11.0"},
+            {"20а", "200*10.0"},
+            {"20б", "200*12.0"},
+            {"22а", "220*11.0"},
+            {"22б", "220*13.0"},
+            {"24а", "240*12.0"},
+            {"24б", "240*14.0"},
+        };
+
+        if (dict.ContainsKey(dimension))
+        {
+            return dict[dimension];
+        }
+        return dimension;
+    }
+    
     public static Dictionary<string, Docx> Read(string drawName)
     {
-        // FIXME: wtf is going on here? extract to function?
-        const string sortament = "5,50*4.0,2.25	5.5,55*4.5,2.73	6,60*5.0,3.36	7,70*5.0,3.98	8,80*5.0,4.58	9,90*5.5,5.52	10,100*6.0,6.76	12,120*6.5,8.75	14а,140*7.0,11.05	14б,140*9.0,13.23	16а,160*8.0,14.08	16б,160*10.0,16.60	18а,180*9.0,17.41	18б,180*11.0,20.24	20а,200*10.0,21.47	20б,200*12.0,24.60	22а,220*11.0,25.75	22б,220*13.0,29.20	24а,240*12.0,30.42	24б,240*14.0,34.18	90*90*6.0,90*6.0,8.33	63*63*6.0,63*6.0,5.72	108*6.0,108*6.0,15.09	133*8.0,133*8.0,24.66	168*9.0,168*9.0,35.29";
-
-        var dataTable = new DataTable("Sortament");
-        var array = new DataColumn[2];
-        dataTable.Columns.Add("NAME");
-        dataTable.Columns.Add("DIM");
-        array[0] = dataTable.Columns["NAME"];
-        dataTable.PrimaryKey = array;
-        var array2 = sortament.Split('\t');
-        foreach (var text in array2)
-        {
-            var array4 = text.Split(',');
-            dataTable.Rows.Add(array4[0], array4[1]);
-        }
-
         WordprocessingDocument document;
         try
         {
