@@ -11,7 +11,7 @@ namespace ReportsGenerator
 
         private void GoButton_Click(object sender, EventArgs e)
         {
-            if (!Directory.Exists(WorkFolder.Text))
+            if (!Directory.Exists(Settings.Default.WorkFolder))
             {
                 MessageBox.Show("Папка не существует.");
                 return;
@@ -23,8 +23,8 @@ namespace ReportsGenerator
         {
             folderBrowserDialog1.ShowDialog();
             var path = folderBrowserDialog1.SelectedPath;
-
-            if (string.IsNullOrEmpty(path))
+            
+            if (!string.IsNullOrEmpty(path))
             {
                 WorkFolder.Text = path;
             }
@@ -38,7 +38,7 @@ namespace ReportsGenerator
             openFileDialog1.ShowDialog();
             var path = openFileDialog1.FileName;
 
-            if (string.IsNullOrEmpty(path))
+            if (!string.IsNullOrEmpty(path))
             {
                 QualityList.Text = path;
             }
@@ -61,7 +61,7 @@ namespace ReportsGenerator
             Drawing.DataBindings.Add("Text", Settings.Default, "Drawing", true,
                 DataSourceUpdateMode.OnPropertyChanged);
             WorkFolder.DataBindings.Add("Text", Settings.Default, "WorkFolder", true,
-                DataSourceUpdateMode.OnPropertyChanged);
+               DataSourceUpdateMode.OnPropertyChanged);
             QualityList.DataBindings.Add("Text", Settings.Default, "QualityList", true,
                 DataSourceUpdateMode.OnPropertyChanged);
         }
