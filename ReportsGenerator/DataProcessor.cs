@@ -86,7 +86,7 @@ internal static class DataProcessor
         }
 
         var gens = Gen.Read(genFiles, qualityList);
-        gens.Sort((a, b) => a.RawThickness.CompareTo(b.RawThickness));
+        gens.Sort((a, b) => String.Compare(a.NestName, b.NestName, StringComparison.Ordinal));
 
         NestingList.Gen(gens);
         PlatePivot.Gen(gens, qualityList);

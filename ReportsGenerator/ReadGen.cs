@@ -19,7 +19,8 @@ public class Gen
     public double PartsWeight { get; private set; }
     public double RemnantWeight { get; private set; }
     public double NestingPercent { get; private set; }
-
+    public int QuantityNormal { get; private set; }
+    public int QuantityMirrored { get; private set; }
     public static List<Gen> Read(List<string> files, Dictionary<string, double> qualityList)
     {
         var res = new List<Gen>();
@@ -74,12 +75,20 @@ public class Gen
                 {
                     g.NoOfBurningStarts = int.Parse(l.Split('=')[1]);
                 }
+                else if (l.Contains("QUANTITY_NORMAL"))
+                {
+                    g.QuantityNormal = int.Parse(l.Split('=')[1]);
+                }
+                else if (l.Contains("QUANTITY_MIRRORED"))
+                {
+                    g.QuantityMirrored = int.Parse(l.Split('=')[1]);
+                }
             }
 
-            g.RawWeight = g.RawArea * qualityList[g.Quality];
-            g.PartsWeight = g.PartsArea * qualityList[g.Quality];
+            g.RawWeight = g.RawThickness * g.RawLength * g.RawWidth * qualityList[g.Quality];
+            g.PartsWeight = g.PartsArea * g.RawThickness * qualityList[g.Quality];
             g.RemnantWeight = g.RawWeight - g.PartsWeight;
-            g.NestingPercent = 1 - g.RemnantWeight / 100;
+            g.NestingPercent = 1 - g.RemnantWeight / g.RawWeight;
 
             res.Add(g);
         }
