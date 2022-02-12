@@ -106,6 +106,11 @@ public class Wcog
 
     private static string GetPos(string s)
     {
-        return s.Split('-')[^1].Replace("P", "").Replace("S", "").Replace("B", "").Replace("C", "");
+        var pos = s.Split('-')[^1].Replace("P", "").Replace("S", "").Replace("B", "").Replace("C", "");
+        if (string.IsNullOrWhiteSpace(pos))
+        {
+            pos = s.Trim(new []{ '-' });
+        }
+        return pos;
     }
 }
