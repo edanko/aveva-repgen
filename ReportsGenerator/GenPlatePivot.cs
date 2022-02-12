@@ -11,7 +11,7 @@ public class PlatePivot
     private double RawWidth { get; set; }
     private int Quantity { get; set; }
 
-    public static void Gen(List<Gen> gens, Dictionary<string, double> qualityList)
+    public static void Gen(List<Gen> gens, Dictionary<string, double> densityList)
     {
         var platePivot = new List<PlatePivot>();
         foreach (var g in gens)
@@ -59,7 +59,7 @@ public class PlatePivot
         {
             var elem = platePivot[i];
 
-            var plateWeight = elem.RawThickness * elem.RawWidth * elem.RawLength * qualityList[elem.Quality];
+            var plateWeight = elem.RawThickness * elem.RawWidth * elem.RawLength * densityList[elem.Quality];
             items.Add(new[]
             {
                 (i + 1).ToString(),

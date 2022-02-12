@@ -2,7 +2,7 @@
 
 namespace ReportsGenerator;
 
-public static class QualityList
+public static class DensityList
 {
     public static Dictionary<string, double> Read(string file)
     {

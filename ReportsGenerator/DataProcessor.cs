@@ -22,7 +22,7 @@ internal static class DataProcessor
             return;
         }
 
-        var qualityList = QualityList.Read(Settings.Default.QualityList);
+        var densityList = DensityList.Read(Settings.Default.QualityList);
         var wcogFile = "";
         var docxFile = "";
         var genFiles = new List<string>();
@@ -85,11 +85,11 @@ internal static class DataProcessor
             return;
         }
 
-        var gens = Gen.Read(genFiles, qualityList);
+        var gens = Gen.Read(genFiles, densityList);
         gens.Sort((a, b) => String.Compare(a.NestName, b.NestName, StringComparison.Ordinal));
 
         NestingList.Gen(gens);
-        PlatePivot.Gen(gens, qualityList);
+        PlatePivot.Gen(gens, densityList);
         ProfilePivot.Gen(wcog);
 
         MessageBox.Show("Работа завершена");

@@ -28,7 +28,7 @@ public class Gen
     public int QuantityNormal { get; private set; }
     public int QuantityMirrored { get; private set; }
     public Dictionary<string,GenPart> Parts { get; private set; }
-    public static List<Gen> Read(List<string> files, Dictionary<string, double> qualityList)
+    public static List<Gen> Read(List<string> files, Dictionary<string, double> densityList)
     {
         var res = new List<Gen>();
 
@@ -117,8 +117,8 @@ public class Gen
                 }
             }
 
-            g.RawWeight = g.RawThickness * g.RawLength * g.RawWidth * qualityList[g.Quality];
-            g.PartsWeight = g.PartsArea * g.RawThickness * qualityList[g.Quality];
+            g.RawWeight = g.RawThickness * g.RawLength * g.RawWidth * densityList[g.Quality];
+            g.PartsWeight = g.PartsArea * g.RawThickness * densityList[g.Quality];
             g.RemnantWeight = g.RawWeight - g.PartsWeight;
             g.NestingPercent = 1 - g.RemnantWeight / g.RawWeight;
 
