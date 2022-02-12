@@ -1,21 +1,22 @@
-﻿using ReportsGenerator.Properties;
+﻿using System.Globalization;
+using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
 public static class BendingList
 {
-    private static string GetNameAndDimentionString(Wcog elem)
+    private static string GetName(Wcog elem)
     {
-        var t = elem.GetThickness().ToString("F1");
-        var dim = elem.Dimension.Split("*");
+        var t = elem.GetThickness().ToString("G");
 
+        // TODO: return profile dimension, not thickness only
         return elem.Shape switch
         {
-            "PP" => $"Полособульб s{t} {t} x {dim[1]} x {elem.TotalLength}",
-            "FB" => $"Полоса s{t} {t} x {dim[1]} x {elem.TotalLength}",
-            "Tube" => $"Труба D{elem.Dimension} x {elem.TotalLength}",
-            "RBAR" => $"Пруток {elem.Dimension} x {elem.TotalLength}",
-            _ => $"Лист s{elem.GetThickness():F1} {elem.GetThickness():F1} x {elem.CircLength} x {elem.CircWidth}"
+            "PP" => $"Полособульб {elem.Dimension}",
+            "FB" => $"Полоса s{t}",
+            "Tube" => $"Труба D{elem.Dimension}",
+            "RBAR" => $"Пруток {elem.Dimension}",
+            _ => $"Лист s{elem.GetThickness():G}"
         };
     }
 
@@ -26,13 +27,11 @@ public static class BendingList
             new[]
             {
                 "№ п/п",
-                "Номер чертежа",
-                "Позиция",
+                "№ чертежа",
+                "№ дет.",
+                "Наименование",
+                "Марка мат.",
                 "Кол-во",
-                "Наименование и основные размеры",
-                "Карта раскроя",
-                "Шифр операции",
-                "Оборудование",
             }
         };
 
@@ -56,9 +55,9 @@ public static class BendingList
                 (i + 1).ToString(),
                 Settings.Default.Drawing,
                 elem.PosNo,
-                elem.Quantity.ToString(),
-                GetNameAndDimentionString(elem),
-                elem.NestedOn,
+                GetName(elem),
+                elem.Quality,
+                elem.Quantity.ToString(CultureInfo.InvariantCulture),
             });
         }
 
