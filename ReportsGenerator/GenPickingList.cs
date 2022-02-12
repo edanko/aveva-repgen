@@ -11,21 +11,12 @@ public static class PickingList
         {
             new []
             {
-                "№ п/п",
-                "Секция",
                 "Позиция",
-                "Кол-во",
-                "Толщина",
+                "Наименование",
                 "Марка",
-                "Карта раскроя",
-                "Shape",
-                "Dimension",
-                "Total Length",
-                "Moulded Length",
-                "Масса",
-                "Маршрут",
-                "Сборка",
-                "АРЭ"
+                "Кол-во",
+                "№ карты раскроя",
+                "Кол-во в КР"
             }
         };
 
@@ -39,28 +30,21 @@ public static class PickingList
             return String.Compare(x, y, StringComparison.Ordinal);
         });
 
-        for (var i = 0; i < list.Count; i++)
+        foreach (var key in list)
         {
-            var key = list[i];
             var elem = wcog[key];
 
             items.Add(new[]
             {
-                (i+1).ToString(),
-                elem.Block,
                 elem.PosNo,
-                elem.Quantity.ToString(),
-                elem.GetThickness().ToString(CultureInfo.InvariantCulture),
+                $"{elem.Shape} s{elem.GetThickness()}", 
                 elem.Quality,
+                elem.Quantity.ToString(),
                 elem.NestedOn,
-                elem.Shape,
-                elem.Dimension,
-                elem.TotalLength.ToString(CultureInfo.InvariantCulture),
-                elem.MouldedLength.ToString(CultureInfo.InvariantCulture),
-                elem.Weight.ToString(CultureInfo.InvariantCulture),
+                "nested quantity"
             });
         }
 
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Перечень деталей.xlsx", items);
+        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Перечень листовых деталей.xlsx", items);
     }
 }
