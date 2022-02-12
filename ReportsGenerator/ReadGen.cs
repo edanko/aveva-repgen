@@ -2,6 +2,12 @@
 
 namespace ReportsGenerator;
 
+public class GenPart
+{
+    public string PosNo { get; set; }
+    public int Quantity { get; set; }
+}
+
 public class Gen
 {
     public string NestName { get; private set; }
@@ -21,16 +27,22 @@ public class Gen
     public double NestingPercent { get; private set; }
     public int QuantityNormal { get; private set; }
     public int QuantityMirrored { get; private set; }
+    public Dictionary<string,GenPart> Parts { get; private set; }
     public static List<Gen> Read(List<string> files, Dictionary<string, double> qualityList)
     {
         var res = new List<Gen>();
 
         foreach (var file in files)
         {
-            var g = new Gen();
-            var lines = File.ReadAllLines(file);
-            foreach (var l in lines)
+            var g = new Gen
             {
+                Parts = new Dictionary<string, GenPart>()
+            };
+
+            var lines = File.ReadAllLines(file);
+            for (var i = 0; i < lines.Length; i++)
+            {
+                var l = lines[i];
                 if (l.Contains("NEST_NAME"))
                 {
                     g.NestName = l.Split('=')[1];
@@ -82,6 +94,26 @@ public class Gen
                 else if (l.Contains("QUANTITY_MIRRORED"))
                 {
                     g.QuantityMirrored = int.Parse(l.Split('=')[1]);
+                }
+
+                else if (l == "PART_DATA")
+                {
+                    var name = lines[i + 1].Split('=')[1];
+                    if (g.Parts.ContainsKey(name))
+                    {
+                        g.Parts[name].Quantity++;
+                    }
+                    else
+                    {
+                        var part = new GenPart
+                        {
+                            PosNo = lines[i + 2].Split('=')[1],
+                            Quantity = 1
+                        };
+                        g.Parts[name] = part;
+                    }
+
+                    i += 2;
                 }
             }
 
