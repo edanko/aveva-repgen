@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using ReportsGenerator.Properties;
+﻿using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
@@ -93,18 +92,5 @@ internal static class DataProcessor
         ProfilePivot.Gen(wcog);
 
         MessageBox.Show("Работа завершена");
-    }
-
-    public static string Regexp(string s, string exp)
-    {
-        var regex = new Regex(exp);
-        var matchCollection = regex.Matches(s);
-        var result = matchCollection.Count switch
-        {
-            > 1 => matchCollection[1].Value,
-            1 => matchCollection[0].Value,
-            _ => s
-        };
-        return result;
     }
 }
