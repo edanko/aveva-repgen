@@ -2,12 +2,6 @@
 
 namespace ReportsGenerator;
 
-public class GenPart
-{
-    public string PosNo { get; set; }
-    public int Quantity { get; set; }
-}
-
 public class Gen
 {
     public string NestName { get; private set; }
@@ -27,7 +21,7 @@ public class Gen
     public double NestingPercent { get; private set; }
     public int QuantityNormal { get; private set; }
     public int QuantityMirrored { get; private set; }
-    public Dictionary<string,GenPart> Parts { get; private set; }
+    public Dictionary<string,uint> Parts { get; private set; }
     public static List<Gen> Read(List<string> files, Dictionary<string, double> densityList)
     {
         var res = new List<Gen>();
@@ -36,7 +30,7 @@ public class Gen
         {
             var g = new Gen
             {
-                Parts = new Dictionary<string, GenPart>()
+                Parts = new Dictionary<string, uint>()
             };
 
             var lines = File.ReadAllLines(file);
@@ -98,19 +92,14 @@ public class Gen
 
                 else if (l == "PART_DATA")
                 {
-                    var name = lines[i + 1].Split('=')[1];
-                    if (g.Parts.ContainsKey(name))
+                    var posno = lines[i + 2].Split('=')[1];
+                    if (g.Parts.ContainsKey(posno))
                     {
-                        g.Parts[name].Quantity++;
+                        g.Parts[posno]++;
                     }
                     else
                     {
-                        var part = new GenPart
-                        {
-                            PosNo = lines[i + 2].Split('=')[1],
-                            Quantity = 1
-                        };
-                        g.Parts[name] = part;
+                        g.Parts[posno] = 1;
                     }
 
                     i += 2;
