@@ -16,7 +16,9 @@ public static class BendingList
                 "№ дет.",
                 "Наименование",
                 "Марка мат.",
+                "Толщина",
                 "Кол-во",
+                "Масса"
             }
         };
 
@@ -42,7 +44,9 @@ public static class BendingList
                 elem.PosNo,
                 elem.GetName(),
                 elem.Quality,
+                elem.GetThickness().ToString(CultureInfo.InvariantCulture),
                 elem.Quantity.ToString(CultureInfo.InvariantCulture),
+                elem.Weight.ToString(CultureInfo.InvariantCulture)
             });
         }
 
