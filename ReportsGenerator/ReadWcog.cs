@@ -20,6 +20,18 @@ public class Wcog
     public bool IsProfile { get; private set; }
     public bool IsBent { get; private set; }
 
+    public string GetName()
+    {
+        return Shape switch
+        {
+            "PP" => $"Полособульб {Dimension}",
+            "FB" => $"Полоса s{GetThickness():G}",
+            "Tube" => $"Труба D{Dimension}",
+            "RBAR" => $"Пруток {Dimension}",
+            _ => $"Лист s{GetThickness():G}"
+        };
+    }
+
     public double GetThickness()
     {
         if (Dimension.Length > 0)

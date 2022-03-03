@@ -5,21 +5,6 @@ namespace ReportsGenerator;
 
 public static class BendingList
 {
-    private static string GetName(Wcog elem)
-    {
-        var t = elem.GetThickness().ToString("G");
-
-        // TODO: return profile dimension, not thickness only
-        return elem.Shape switch
-        {
-            "PP" => $"Полособульб {elem.Dimension}",
-            "FB" => $"Полоса s{t}",
-            "Tube" => $"Труба D{elem.Dimension}",
-            "RBAR" => $"Пруток {elem.Dimension}",
-            _ => $"Лист s{elem.GetThickness():G}"
-        };
-    }
-
     public static void Gen(Dictionary<string,Wcog> parts)
     {
         var items = new List<string[]>
@@ -55,7 +40,7 @@ public static class BendingList
                 (i + 1).ToString(),
                 Settings.Default.Drawing,
                 elem.PosNo,
-                GetName(elem),
+                elem.GetName(),
                 elem.Quality,
                 elem.Quantity.ToString(CultureInfo.InvariantCulture),
             });
