@@ -69,23 +69,22 @@ internal static class DataProcessor
             return;
         }
 
+        if (genFiles.Count == 0)
+        {
+            MessageBox.Show("Файлы GEN не обнаружены в заданном расположении, генерация ведомости карт раскроя и материальной ведомости невозможна!");
+            return;
+        }
+        var gens = Gen.Read(genFiles, densityList);
+        gens.Sort((a, b) => String.Compare(a.NestName, b.NestName, StringComparison.Ordinal));
+
         ComparisonLog.Gen(wcog, docx);
-        PickingList.Gen(wcog);
+        PickingList.Gen(wcog, gens);
 
         var bentParts = wcog.Where(x => x.Value.IsBent).ToDictionary(x => x.Key, x => x.Value);
         if (bentParts.Count > 0)
         {
             BendingList.Gen(bentParts);
         }
-
-        if (genFiles.Count == 0)
-        {
-            MessageBox.Show("Файлы GEN не обнаружены в заданном расположении, генерация ведомости карт раскроя и материальной ведомости невозможна!");
-            return;
-        }
-
-        var gens = Gen.Read(genFiles, densityList);
-        gens.Sort((a, b) => String.Compare(a.NestName, b.NestName, StringComparison.Ordinal));
 
         NestingList.Gen(gens);
         PlatePivot.Gen(gens, densityList);
