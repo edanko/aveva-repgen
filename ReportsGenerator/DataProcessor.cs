@@ -61,8 +61,9 @@ internal static class DataProcessor
             MessageBox.Show("Из wcog'а ничего не прочитано");
             return;
         }
-
-        var docx = Docx.Read(docxFile);
+        
+        var materials = Materials.Read("materials.csv");
+        var docx = Docx.Read(docxFile, materials);
         if (docx.Count == 0)
         {
             MessageBox.Show("Из спецификации ничего не прочитано");

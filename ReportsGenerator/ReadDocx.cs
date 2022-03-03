@@ -52,7 +52,7 @@ public class Docx
         return dimension;
     }
     
-    public static Dictionary<string, Docx> Read(string drawName)
+    public static Dictionary<string, Docx> Read(string drawName, Dictionary<string, string> materials)
     {
         WordprocessingDocument document;
         try
@@ -83,30 +83,15 @@ public class Docx
         
         document.Close();
 
+        foreach (var part in result)
+        {
+            if (materials.ContainsKey(part.Value.Quality))
+            {
+                result[part.Key].Quality = materials[part.Value.Quality];
+            }
+        }
+        
         return result;
-    }
-
-    private static string RenameMaterial(string s)
-    {
-        s = s.ToUpper();
-        return s.Replace("D500W", "DW")
-            .Replace("D500CB", "DCB")
-            .Replace("E500W", "EW")
-            .Replace("E500CB", "ECB")
-            .Replace("E500Z-П", "E500W")
-            .Replace("45Г17Ю3", "45G")
-            .Replace("F500W", "FW")
-            .Replace("СП 20", "ST20")
-            .Replace("СТ3СП ГОФРИРОВАННАЯ", "SP3PS_125")
-            .Replace("СТ3СП", "SP3PS_143")
-            .Replace("08Х18Н10Т", "Н10")
-            .Replace("E36Z35", "E36Z")
-            .Replace("D36Z35", "D36Z")
-            .Replace("БЕТОН СЕРПЕНТИНИТОВЫЙ", "BS")
-            .Replace("БЕТОН СЕРПЕНТИНИТОВЫЙ С КАРБИДОМ БОРА", "BSB")
-            .Replace("А", "A")
-            .Replace("Н", "H")
-            .Replace(" ", "");
     }
 
     private static Dictionary<string, Docx> Kind1(IEnumerable<Table> tables)
@@ -168,7 +153,7 @@ public class Docx
                 }
                 current.Dimension = nameParts[1];
                 current.Assembly = lastName;
-                current.Quality = RenameMaterial(columns[11].InnerText);
+                current.Quality = columns[11].InnerText.ToUpper().Trim();
 
                 var weightColumn = 6;
                 if (current.Quantity > 1)
@@ -233,7 +218,7 @@ public class Docx
                 }
                 
                 current.Assembly = lastName;
-                current.Quality = RenameMaterial(columns[14].InnerText);
+                current.Quality = columns[14].InnerText.ToUpper().Trim();
 
                 var weightColumn = 9;
                 if (current.Quantity > 1)
@@ -302,7 +287,7 @@ public class Docx
                 }
                 
                 current.MaterialListCode = columns[10].InnerText;
-                current.Quality = RenameMaterial(columns[12].InnerText);
+                current.Quality = columns[12].InnerText.ToUpper().Trim();
                 current.Weight = double.Parse(columns[7].InnerText, CultureInfo.InvariantCulture);
 
                 result.Add(current.PosNo, current);
