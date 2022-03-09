@@ -107,6 +107,9 @@ public static class ComparisonLog
             }
         }
 
-        ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Лог сравнения WCOG и спецификации.xlsx", items);
+        if (items.Count > 1)
+        {
+            ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Лог сравнения WCOG и спецификации.xlsx", items);
+        }
     }
 }
