@@ -105,7 +105,8 @@ public class Wcog
                 l.IsBent = true;
             }
 
-            if (c[8].Contains("PROFILE"))
+            // Treat flat bar profile as plate part.
+            if (c[8].Contains("PROFILE") && l.Shape != "FB")
             {
                 l.IsProfile = true;
             }
