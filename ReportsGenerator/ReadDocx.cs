@@ -18,41 +18,8 @@ public class Docx
     public string Assembly { get; private set; }
     public bool IsProfile { get; private set; }
 
-    private static string NormalizeProfileDimension(string dimension)
-    {
-        // TODO: add other profile dimensions
-        var dict = new Dictionary<string, string>
-        {
-            {"5", "50*4.0"},
-            {"5.5", "55*4.5"},
-            {"6", "60*5.0"},
-            {"7", "70*5.0"},
-            {"8", "80*5.0"},
-            {"9", "90*5.5"},
-            {"10", "100*6.0"},
-            {"12", "120*6.5"},
-            {"14а", "140*7.0"},
-            {"14б", "140*9.0"},
-            {"16а", "160*8.0"},
-            {"16б", "160*10.0"},
-            {"18а", "180*9.0"},
-            {"18б", "180*11.0"},
-            {"20а", "200*10.0"},
-            {"20б", "200*12.0"},
-            {"22а", "220*11.0"},
-            {"22б", "220*13.0"},
-            {"24а", "240*12.0"},
-            {"24б", "240*14.0"},
-        };
-
-        if (dict.ContainsKey(dimension))
-        {
-            return dict[dimension];
-        }
-        return dimension;
-    }
-    
-    public static Dictionary<string, Docx> Read(string drawName, Dictionary<string, string> materials)
+    public static Dictionary<string, Docx> Read(string drawName, Dictionary<string, string> materials,
+        List<Profile> profiles)
     {
         WordprocessingDocument document;
         try
@@ -88,6 +55,15 @@ public class Docx
             if (materials.ContainsKey(part.Value.Quality))
             {
                 result[part.Key].Quality = materials[part.Value.Quality];
+            }
+
+            if (part.Value.IsProfile)
+            {
+                var p = profiles.Find(x => x.Name == part.Value.Dimension);
+                if (p != null)
+                {
+                    result[part.Key].Dimension = p.Normalized;
+                }
             }
         }
         

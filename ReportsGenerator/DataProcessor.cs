@@ -62,8 +62,9 @@ internal static class DataProcessor
             return;
         }
         
+        var profiles = Profiles.Read("profiles.csv");
         var materials = Materials.Read("materials.csv");
-        var docx = Docx.Read(docxFile, materials);
+        var docx = Docx.Read(docxFile, materials, profiles);
         if (docx.Count == 0)
         {
             MessageBox.Show("Из спецификации ничего не прочитано");
@@ -89,7 +90,7 @@ internal static class DataProcessor
 
         NestingList.Gen(gens);
         PlatePivot.Gen(gens, densityList);
-        ProfilePivot.Gen(wcog);
+        ProfilePivot.Gen(wcog, profiles);
 
         MessageBox.Show("Работа завершена");
     }
