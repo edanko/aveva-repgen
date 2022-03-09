@@ -6,7 +6,7 @@ namespace ReportsGenerator;
 public class ProfilePivot
 {
     private string Quality { get; set; }
-    private string Type { get; set; }
+    private string Dimension { get; set; }
     private double Length { get; set; }
 
     public static void Gen(Dictionary<string, Wcog> wcog, List<Profile> dict)
@@ -17,14 +17,14 @@ public class ProfilePivot
         {
             var p = profilePivot.Find(x =>
                 x.Quality == prof.Value.Quality &&
-                x.Type == prof.Value.Shape+prof.Value.Dimension);
+                x.Dimension == prof.Value.Dimension);
 
             if (p == null)
             {
                 p = new ProfilePivot
                 {
                     Quality = prof.Value.Quality,
-                    Type = prof.Value.Shape + prof.Value.Dimension
+                    Dimension = prof.Value.Dimension
                 };
 
                 profilePivot.Add(p);
@@ -35,11 +35,11 @@ public class ProfilePivot
 
         profilePivot.Sort((x, y) =>
         {
-            if(int.TryParse(x.Type.Split("*")[^1], out var a) && int.TryParse(y.Type.Split("*")[^1], out var b))
+            if(int.TryParse(x.Dimension.Split("*")[^1], out var a) && int.TryParse(y.Dimension.Split("*")[^1], out var b))
             {
                 return a.CompareTo(b);
             }
-            return String.Compare(x.Type.Split("*")[^1], y.Type.Split("*")[^1], StringComparison.Ordinal);
+            return String.Compare(x.Dimension.Split("*")[^1], y.Dimension.Split("*")[^1], StringComparison.Ordinal);
         });
         
         var items = new List<string[]>
@@ -60,10 +60,10 @@ public class ProfilePivot
         {
             var elem = profilePivot[i];
 
-            var profileData = dict.Find(x => x.Normalized == elem.Type);
+            var profileData = dict.Find(x => x.Normalized == elem.Dimension);
             if (profileData == null)
             {
-                MessageBox.Show($"{elem.Type} is not found in profile data");
+                MessageBox.Show($"Типоразмер \"{elem.Dimension}\" не найден в profiles.csv");
                 continue;
             }
             
@@ -75,7 +75,7 @@ public class ProfilePivot
             items.Add(new[]
             {
                 (i + 1).ToString(),
-                elem.Type,
+                elem.Dimension,
                 elem.Quality,
                 barLength.ToString(CultureInfo.InvariantCulture),
                 numBars.ToString(CultureInfo.InvariantCulture),

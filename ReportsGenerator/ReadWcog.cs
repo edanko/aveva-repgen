@@ -70,13 +70,14 @@ public class Wcog
                 continue;
             }
 
+            var shape = c[23].Trim();
             var l = new Wcog
             {
                 Block = c[6],
                 Quality = c[11],
                 NestedOn = c[18],
-                Shape = c[23].Trim(),
-                Dimension = c[24],
+                Shape = shape,
+                Dimension = shape+c[24],
                 TotalLength = double.TryParse(c[25], NumberStyles.Any, CultureInfo.InvariantCulture, out var val2)
                     ? val2
                     : 0.0,
