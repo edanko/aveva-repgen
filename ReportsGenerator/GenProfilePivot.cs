@@ -9,6 +9,16 @@ public class ProfilePivot
     private string Dimension { get; set; }
     private double Length { get; set; }
 
+    private string GetName()
+    {
+        if (Dimension.Contains("PP"))
+        {
+            return $"Полособульб {Dimension.Replace("PP", "HP")}";
+        }
+
+        return Dimension;
+    }
+    
     public static void Gen(Dictionary<string, Wcog> wcog, List<Profile> dict)
     {
         var profiles = wcog.Where(x => x.Value.IsProfile).ToDictionary(x => x.Key, x => x.Value);
@@ -75,7 +85,7 @@ public class ProfilePivot
             items.Add(new[]
             {
                 (i + 1).ToString(),
-                elem.Dimension,
+                elem.GetName(),
                 elem.Quality,
                 barLength.ToString(CultureInfo.InvariantCulture),
                 numBars.ToString(CultureInfo.InvariantCulture),
