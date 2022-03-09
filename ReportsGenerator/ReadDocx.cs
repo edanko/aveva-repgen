@@ -141,7 +141,7 @@ public class Docx
                 
                 var nameParts = ProcessKind1Name(columns[1].InnerText);
                 current.Shape = nameParts[0];
-                if (nameParts[0] != "Лист" && nameParts[0] != "Полоса")
+                if (nameParts[0] == "Полособульб")
                 {
                     current.IsProfile = true;
                 }
@@ -271,7 +271,7 @@ public class Docx
                 if (nameParts.Length == 3)
                 {
                     current.Shape = nameParts[0];
-                    if (nameParts[0] != "Лист" && nameParts[0] != "Полоса")
+                    if (nameParts[0] == "Полособульб")
                     {
                         current.IsProfile = true;
                     }
