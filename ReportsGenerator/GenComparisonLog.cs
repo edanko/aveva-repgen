@@ -1,4 +1,5 @@
-﻿using ReportsGenerator.Properties;
+﻿using System.Globalization;
+using ReportsGenerator.Properties;
 
 namespace ReportsGenerator;
 
@@ -78,15 +79,31 @@ public static class ComparisonLog
                 });
             }
 
-            if (wcog[k].Dimension != docx[k].Dimension)
+            if (wcog[k].IsProfile)
             {
-                items.Add(new[]
+                if (wcog[k].Dimension != docx[k].Dimension)
                 {
-                    k,
-                    "Конфликт типоразмеров",
-                    wcog[k].Dimension,
-                    docx[k].Dimension
-                });
+                    items.Add(new[]
+                    {
+                        k,
+                        "Конфликт типоразмеров",
+                        wcog[k].Dimension,
+                        docx[k].Dimension
+                    });
+                }
+            }
+            else
+            {
+                if (Math.Abs(wcog[k].GetThickness() - docx[k].Thickness) > 0.001)
+                {
+                    items.Add(new[]
+                    {
+                        k,
+                        "Конфликт толщин",
+                        wcog[k].GetThickness().ToString(CultureInfo.InvariantCulture),
+                        docx[k].Thickness.ToString(CultureInfo.InvariantCulture)
+                    });
+                }
             }
         }
 

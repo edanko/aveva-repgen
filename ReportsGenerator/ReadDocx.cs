@@ -10,6 +10,7 @@ public class Docx
     public string PosNo { get; private set; }
     public int Quantity { get; private set; }
     public string Dimension { get; private set; }
+    public double Thickness { get; set; }
     public string Quality { get; private set; }
     public double Weight { get; private set; }
     public string MaterialCode { get; private set; }
@@ -63,7 +64,24 @@ public class Docx
                 if (p != null)
                 {
                     result[part.Key].Dimension = p.Normalized;
+                    var thickness = p.Normalized.Split('*')[1];
+                    result[part.Key].Thickness = double.Parse(thickness, NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
+            }
+            else
+            {
+                var dimension = result[part.Key].Dimension;
+                string thickness; 
+                if (dimension.Contains("s"))
+                {
+                    thickness = dimension.TrimStart('s');
+                }
+                else
+                {
+                    thickness = dimension.Split('x')[0];
+                }
+                
+                result[part.Key].Thickness = double.Parse(thickness, NumberStyles.Any, CultureInfo.InvariantCulture);
             }
         }
         
