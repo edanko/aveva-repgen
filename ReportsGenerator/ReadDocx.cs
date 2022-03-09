@@ -271,12 +271,31 @@ public class Docx
                 if (nameParts.Length == 3)
                 {
                     current.Shape = nameParts[0];
+                    
+                    if (nameParts[0] == "РЖ")
+                    {
+                        current.IsProfile = true;
+                        if (nameParts[1].Contains("Р"))
+                        {
+                            var temp = nameParts[1].TrimStart('Р').Split("x");
+                            var thickness = double.Parse(temp[0], NumberStyles.Any, CultureInfo.InvariantCulture);
+                            current.Dimension = $"PP{temp[1]}*{thickness.ToString("F1", CultureInfo.InvariantCulture)}";
+                        }
+                        else
+                        {
+                            current.Dimension = nameParts[1];
+                        }
+                    }
+                    else
+                    {
+                        current.Dimension = nameParts[1];
+                    }
+                    
                     if (nameParts[0] == "Полособульб")
                     {
                         current.IsProfile = true;
                     }
 
-                    current.Dimension = nameParts[1];
                     current.Assembly = nameParts[2];
                 }
                 
