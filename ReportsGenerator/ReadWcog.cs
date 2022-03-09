@@ -24,7 +24,7 @@ public class Wcog
     {
         return Shape switch
         {
-            "PP" => $"Полособульб {Dimension}",
+            "PP" => $"Полособульб {Dimension.Replace("PP", "HP")}",
             "FB" => $"Полоса s{GetThickness():G}",
             "Tube" => $"Труба D{Dimension}",
             "RBAR" => $"Пруток {Dimension}",
