@@ -9,6 +9,8 @@ public static class NestingList
     {
         var items = new List<string[]>
         {
+            new string[]{},
+            new []{"", "Перечень карт раскроя"},
             new []
             {
                 "№ п/п",

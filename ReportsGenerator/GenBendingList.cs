@@ -9,6 +9,8 @@ public static class BendingList
     {
         var items = new List<string[]>
         {
+            new string[]{},
+            new []{"", "Перечень гнутых деталей"},
             new[]
             {
                 "№ п/п",

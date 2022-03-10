@@ -42,6 +42,8 @@ public class PlatePivot
 
         var items = new List<string[]>
         {
+            new string[]{},
+            new []{"", "Сводная ведомость материалов (лист)"},
             new []
             {
                 "№ п/п",
@@ -55,11 +57,14 @@ public class PlatePivot
             }
         };
 
+        var totalWeightSum = 0.0;
         for (var i = 0; i < platePivot.Count; i++)
         {
             var elem = platePivot[i];
 
             var plateWeight = elem.RawThickness * elem.RawWidth * elem.RawLength * densityList[elem.Quality];
+            var totalWeight = plateWeight * elem.Quantity;
+            totalWeightSum += totalWeight;
             items.Add(new[]
             {
                 (i + 1).ToString(),
@@ -69,10 +74,23 @@ public class PlatePivot
                 elem.Quality,
                 elem.Quantity.ToString(),
                 plateWeight.ToString(CultureInfo.InvariantCulture),
-                (plateWeight*elem.Quantity).ToString(CultureInfo.InvariantCulture)
+                totalWeight.ToString(CultureInfo.InvariantCulture)
             });
         }
 
+        items.Add(new string[] {});
+        items.Add(new[]
+        {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "Итого",
+            totalWeightSum.ToString(CultureInfo.InvariantCulture)
+        });
+        
         ExcelHelper.CreateXlsx($"{Settings.Default.WorkFolder}\\{Settings.Default.Drawing} - Сводная по листам.xlsx", items);
     }
 }

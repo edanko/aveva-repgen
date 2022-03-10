@@ -54,6 +54,8 @@ public class ProfilePivot
         
         var items = new List<string[]>
         {
+            new string[]{},
+            new []{"", "Сводная ведомость материалов (профиль)"},
             new []
             {
                 "№ п/п",

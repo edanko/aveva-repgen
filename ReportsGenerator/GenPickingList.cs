@@ -9,6 +9,8 @@ public static class PickingList
     {
         var items = new List<string[]>
         {
+            new string[]{},
+            new []{"", "Перечень листовых деталей"},
             new []
             {
                 "Позиция",
