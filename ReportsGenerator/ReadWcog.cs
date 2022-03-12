@@ -125,6 +125,6 @@ public class Wcog
         {
             pos = s.Trim('-');
         }
-        return pos;
+        return pos.Trim();
     }
 }
