@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace ReportsGenerator;
 
@@ -18,7 +19,7 @@ public static class DensityList
                 continue;
             }
 
-            var s = l.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            var s = Regex.Split(l, @"\s+");
             if (s[2] == "*")
             {
                 res.Add(s[0], lastDensity);
