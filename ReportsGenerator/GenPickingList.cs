@@ -19,7 +19,8 @@ public static class PickingList
                 "Кол-во",
                 "№ карты раскроя",
                 "Кол-во в КР",
-                "Масса"
+                "Масса",
+                "Признак гибки"
             }
         };
 
@@ -57,7 +58,8 @@ public static class PickingList
                             elem.Quantity.ToString(),
                             nc.NestName,
                             nc.Parts[elem.PosNo].ToString(CultureInfo.InvariantCulture),
-                            (elem.Weight * nc.Parts[elem.PosNo]).ToString(CultureInfo.InvariantCulture)
+                            (elem.Weight * nc.Parts[elem.PosNo]).ToString(CultureInfo.InvariantCulture),
+                            ""
                         });
                     }
                     else
@@ -70,7 +72,8 @@ public static class PickingList
                             "",
                             nc.NestName,
                             nc.Parts[elem.PosNo].ToString(CultureInfo.InvariantCulture),
-                            (elem.Weight * nc.Parts[elem.PosNo]).ToString(CultureInfo.InvariantCulture)
+                            (elem.Weight * nc.Parts[elem.PosNo]).ToString(CultureInfo.InvariantCulture),
+                            ""
                         });
                     }
                 }
@@ -85,7 +88,8 @@ public static class PickingList
                     elem.Quantity.ToString(),
                     elem.NestedOn,
                     elem.Quantity.ToString(),
-                    (elem.Weight * elem.Quantity).ToString(CultureInfo.InvariantCulture)
+                    (elem.Weight * elem.Quantity).ToString(CultureInfo.InvariantCulture),
+                    ""
                 });
             }
         }
